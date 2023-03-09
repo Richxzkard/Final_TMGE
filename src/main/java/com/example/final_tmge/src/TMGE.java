@@ -1,0 +1,46 @@
+package com.example.final_tmge.src;
+
+public abstract class TMGE {
+
+    String name;
+    Board gameBoard;
+    Player player1;
+    Player player2;
+
+    public TMGE(String name, Player p1, Player p2){
+        this.name = name;
+        player1 = p1;
+        player2 = p2;
+    }
+
+    public TMGE(String name, Player p1){
+        this.name = name;
+        this.player1 = p1;
+        this.player2 = null;
+    }
+
+    public TMGE(String name){
+        this.name = name;
+        this.player1 = null;
+        this.player2 = null;
+    }
+
+    public String getGameName(){
+        return this.name;
+    }
+
+    public static boolean notifyPlayer(int player){
+        return true;
+    }
+
+    public static void updateGamePiece(int x, int y){
+        return;
+    }
+
+    public void play(){
+    }
+
+    public void refresh(){
+        
+    }
+}
