@@ -3,21 +3,18 @@ package com.example.final_tmge.src;
 public class Bejeweled extends TMGE{
 
     // Gem pieces class inherited from GamePiece, might add more functionality as needed.
-    public class Gems extends GamePiece{
-
-        String imagePath;
-
-        Gems(String name, String path){
+    public static class Gem extends GamePiece{
+        Gem(String name){
             super(name);
-            this.imagePath = path;
-        }
-
-        @Override
-        public String pngPath(){
-            return imagePath;
         }
 
     }
+
+    /**
+        gem pieces
+     */
+
+
 
     BejeweledBoard board = new BejeweledBoard(10, 10);
     public Bejeweled(String name, Player p1, Player p2) {
