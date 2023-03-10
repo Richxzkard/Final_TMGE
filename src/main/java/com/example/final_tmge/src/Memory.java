@@ -21,8 +21,14 @@ public class Memory extends TMGE {
         return board.getWidth();
     }
 
-    //TODO: JUST FOR GUI DEVELOPMENT, MOVE TO THE CORRESPONDING FILE LATER
+    //TODO: JUST FOR GUI DEVELOPMENT, MOVE THE SIZE, 90, TO THE CORRESPONDING FILE AND UPDATE THIS FUNCTION'S BODY LATER
     public int getTileSize(){
         return 90;
     }
+
+    //TODO: JUST FOR GUI DEVELOPMENT, CALL THE CORRESPONDING FUNCTION IN SOME FILE AND UPDATE THE BODY OF THIS FUNCTION
+    public String getQuestionImage(){
+        return "/img/question.png";
+    }
+
 }

@@ -8,8 +8,17 @@ public class BejeweledTileGenerator implements TileGenerator{
     Gem spade;
     Gem star;
     Gem teddy;
+    Gem[] gems;
 
     BejeweledTileGenerator(){
+        heart = new Gem("heart");
+        jewel = new Gem("jewel");
+        question = new Gem("question");
+        spade = new Gem("star");
+        star = new Gem("star");
+        teddy = new Gem("teddy");
+
+        gems = new Gem[]{heart, jewel, question, spade, star, teddy};
 
     }
     @Override
