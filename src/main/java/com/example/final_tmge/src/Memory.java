@@ -12,4 +12,17 @@ public class Memory extends TMGE {
     public MemoryBoard getBoard(){
         return board;
     }
+
+    public int getBoardHeight(){
+        return board.getHeight();
+    }
+
+    public int getBoardWidth(){
+        return board.getWidth();
+    }
+
+    //TODO: JUST FOR GUI DEVELOPMENT, MOVE TO THE CORRESPONDING FILE LATER
+    public int getTileSize(){
+        return 90;
+    }
 }

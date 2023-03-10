@@ -9,7 +9,6 @@ public class MemoryTileGenerator implements TileGenerator {
 
     @Override
     public GamePiece generateTile() {
-
         throw new UnsupportedOperationException("Unimplemented method 'generateTile'");
     }
     
