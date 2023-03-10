@@ -14,7 +14,7 @@ public class Main {
         Player player2 = new Player(player2Name);
         
         Memory memory = new Memory("Memory", player1, player2);
-        Bejeweled bejeweled = new Bejeweled("Bejeweled", player1, player2);
+        TileGenerator.Bejeweled bejeweled = new TileGenerator.Bejeweled("Bejeweled", player1, player2);
         menu.addGame(bejeweled);
         menu.addGame(memory);
 

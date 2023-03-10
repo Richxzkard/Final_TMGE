@@ -18,13 +18,12 @@ public class Application extends javafx.application.Application {
         Player player2 = new Player(player2Name);
 
         Memory memory = new Memory("Memory", player1, player2);
-        Bejeweled bejeweled = new Bejeweled("Bejeweled", player1, player2);
+        TileGenerator.Bejeweled bejeweled = new TileGenerator.Bejeweled("Bejeweled", player1, player2);
         menu.addGame(bejeweled);
         menu.addGame(memory);
 
         //print out the menu and get user input
         int selection = Main.getUserSelection("GAME MENU", menu.getMenuList());
-        System.out.println("User choose " + selection); //TEST
 
         //Get to know to pop up which game UI
         String title = "";
@@ -33,6 +32,11 @@ public class Application extends javafx.application.Application {
             title = "Memory Game";
             fxmlFile = "MemoryGameUI.fxml";
         }
+        else{
+            title = "Bejeweled";
+            fxmlFile = ""; //TODO: BEJEWELED.FXML
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxmlFile));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(title);

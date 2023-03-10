@@ -18,5 +18,9 @@ public class BejeweledScoreboard implements iScore {
     public boolean checkWinCondition() {
         throw new UnsupportedOperationException("Unimplemented method 'checkWinCondition'");
     }
-    
+
+    @Override
+    public int getScore(){
+        return score;
+    }
 }

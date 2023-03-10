@@ -4,4 +4,7 @@ interface iScore {
     public void updateScore(int score);
     public void resetPoints();
     public boolean checkWinCondition();
+
+    public int getScore();
 }
+
