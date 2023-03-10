@@ -17,7 +17,7 @@ public abstract class GamePiece{
     }
 
     public String pngPath(){
-        return "../img/" + id + ".webp";
+        return "../img/" + id + ".png";
     }
 
     public void disappear(){
