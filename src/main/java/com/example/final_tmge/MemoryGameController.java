@@ -15,7 +15,7 @@ public class MemoryGameController {
         for(int r=0; r<memory.getBoard().getHeight(); r++){
             for(int c=0; c<memory.getBoard().getWidth(); c++){
                 //creating the image object
-                URL url = Application.class.getResource("/img/teddy.png");
+                URL url = Application.class.getResource("/img/question.png");
                 Image questionImage = new Image(url.toExternalForm());
                 //creating the image view
                 ImageView questionView = new ImageView(questionImage);
