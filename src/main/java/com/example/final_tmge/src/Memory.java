@@ -7,5 +7,9 @@ public class Memory extends TMGE {
     public Memory(String name, Player p1, Player p2) {
         super(name, p1, p2);
     }
-    
+
+    @Override
+    public MemoryBoard getBoard(){
+        return board;
+    }
 }
