@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
+
+    public static TMGE GamePlay;
     @Override
     public void start(Stage stage) throws IOException {
         GameMenu menu = new GameMenu();
@@ -28,7 +30,8 @@ public class Application extends javafx.application.Application {
         //Get to know to pop up which game UI
         String title = "";
         String fxmlFile = "";
-        if(menu.getGame(selection).getGameName().equals("Memory")){
+        GamePlay = menu.getGame(selection);
+        if(GamePlay.getGameName().equals("Memory")){
             title = "Memory Game";
             fxmlFile = "MemoryGameUI.fxml";
         }

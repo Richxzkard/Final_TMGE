@@ -6,24 +6,6 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        GameMenu menu = new GameMenu();
-
-        String player1Name = Main.getUserInput("Please enter your name Player 1: ");
-        String player2Name = Main.getUserInput("Please enter your name Player 2: ");
-        Player player1 = new Player(player1Name);
-        Player player2 = new Player(player2Name);
-        
-        Memory memory = new Memory("Memory", player1, player2);
-        TileGenerator.Bejeweled bejeweled = new TileGenerator.Bejeweled("Bejeweled", player1, player2);
-        menu.addGame(bejeweled);
-        menu.addGame(memory);
-
-        //print out the menu and get user input
-        int selection = Main.getUserSelection("GAME MENU", menu.getMenuList());
-        System.out.println("User choose " + selection); //TEST
-
-        //The corresponding game starts
-        menu.getGame(selection).play();
     }
 
     //This function would printout a list of options and get user's input

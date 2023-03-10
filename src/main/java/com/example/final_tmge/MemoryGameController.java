@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class MemoryGameController {
     public GridPane gameMatrix;
-    public Memory memory;
+    public Memory memory = (Memory)Application.GamePlay;
 
     public void initialize() throws IOException {
         for(int r=0; r<memory.getBoard().getHeight(); r++){
@@ -25,4 +25,6 @@ public class MemoryGameController {
             }
         }
     }
+
+
 }
