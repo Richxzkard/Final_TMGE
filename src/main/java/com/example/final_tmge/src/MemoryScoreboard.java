@@ -2,26 +2,47 @@ package com.example.final_tmge.src;
 
 public class MemoryScoreboard implements iScore {
 
-    private int score = 0;
+    //MEMORY KEEPS TRACK OF MATCHES INSTEAD OF SCORES
+
+    private int player1Matches = 0;
+    private int player2Matches = 0;
 
     @Override
-    public void updateScore(int score) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateScore'");
+    public void updatePlayer1Score() {
+        player1Matches++;
     }
 
     @Override
-    public void resetPoints() {
-        throw new UnsupportedOperationException("Unimplemented method 'resetPoints'");
+    public void updatePlayer2Score(){
+        player2Matches++;
     }
 
     @Override
-    public boolean checkWinCondition() {
-        throw new UnsupportedOperationException("Unimplemented method 'checkWinCondition'");
+    public void resetScores() {
+        player1Matches = 0;
+        player2Matches = 0;
     }
 
     @Override
-    public int getScore(){
-        return score;
+    public int checkWinCondition() {
+        if (player1Matches > player2Matches){
+            return 1; //PLAYER 1 WINS
+        }
+        else if (player1Matches < player2Matches){
+            return 2; //PLAYER 2 WINS
+        }
+        return 0; //NOBODY WINS; TIE
     }
+
+    @Override
+    public int getPlayer1Score(){
+        return player1Matches;
+    }
+
+    @Override
+    public int getPlayer2Score(){
+        return player2Matches;
+    }
+
     
 }
