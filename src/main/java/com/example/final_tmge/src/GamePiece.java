@@ -1,12 +1,8 @@
 package com.example.final_tmge.src;
 
 public abstract class GamePiece{
-    private String id; //name of the piece to grab the corresponding webp;
+    protected String id; //name of the piece to grab the corresponding webp;
                 //for example, if the id is "Diamond", then grab diamond.png
-
-    public GamePiece(){
-        id = "empty";
-    }
 
     public GamePiece(String id){
         this.id = id;
@@ -17,7 +13,7 @@ public abstract class GamePiece{
     }
 
     public String pngPath(){
-        return "../img/" + id + ".png";
+        return "/img/" + id + ".png";
     }
 
     public void disappear(){

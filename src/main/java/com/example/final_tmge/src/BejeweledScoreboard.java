@@ -4,23 +4,44 @@ public class BejeweledScoreboard implements iScore {
 
     private int score = 0;
 
-    @Override
-    public void updateScore(int score) {
+
+    public void updatePlayerScore(int score) {
         throw new UnsupportedOperationException("Unimplemented method 'updateScore'");
     }
 
+
     @Override
-    public void resetPoints() {
+    public void updatePlayer1Score() {
+
+    }
+
+    @Override
+    public void updatePlayer2Score() {
+
+    }
+
+    @Override
+    public void resetScores() {
         throw new UnsupportedOperationException("Unimplemented method 'resetPoints'");
     }
 
     @Override
-    public boolean checkWinCondition() {
+    public int checkWinCondition() {
         throw new UnsupportedOperationException("Unimplemented method 'checkWinCondition'");
     }
 
     @Override
-    public int getScore(){
+    public int getPlayer1Score() {
+        return 0;
+    }
+
+    @Override
+    public int getPlayer2Score() {
+        return 0;
+    }
+
+    public int getPlayerScore(){
         return score;
     }
+
 }

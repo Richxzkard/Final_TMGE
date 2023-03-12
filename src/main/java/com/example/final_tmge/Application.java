@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class Application extends javafx.application.Application {
 
@@ -39,12 +40,15 @@ public class Application extends javafx.application.Application {
             title = "Bejeweled";
             fxmlFile = ""; //TODO: BEJEWELED.FXML
         }
-
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxmlFile));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.getResource(fxmlFile));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static URL getResource(String path){
+        return Application.class.getResource(path);
     }
 
     public static void main(String[] args) {

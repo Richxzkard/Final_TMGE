@@ -1,30 +1,68 @@
 package com.example.final_tmge;
 
 import com.example.final_tmge.src.Memory;
+import com.example.final_tmge.src.MemoryPiece;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import java.io.IOException;
-import java.net.URL;
 
 public class MemoryGameController {
     public GridPane gameMatrix;
+    public Button start;
     public Memory memory = (Memory)Application.GamePlay;
 
+
     public void initialize() throws IOException {
-        for(int r=0; r<memory.getBoardHeight(); r++){
-            for(int c=0; c<memory.getBoardWidth(); c++){
-                //creating the image object
-                URL url = Application.class.getResource(memory.getQuestionImage());
-                Image questionImage = new Image(url.toExternalForm());
-                //creating the image view
-                ImageView questionView = new ImageView(questionImage);
-                questionView.setFitWidth(memory.getTileSize());
-                questionView.setFitHeight(memory.getTileSize());
-                gameMatrix.add(questionView, r, c);
+       startNewGame();
+       start.setOnMouseClicked(event -> startNewGame());
+    }
+
+    //TODO: CHECK IF THE GAME END
+    public void cardListener(MouseEvent event){
+        Node sourceComponent = (Node) event.getSource();
+        String rowAndColumn = (String) sourceComponent.getUserData();
+        int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
+        int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
+        String image = memory.getPath(rowSelected, colSelected);
+        if(image != null){
+            Image newImage = new Image(Application.getResource(image).toExternalForm());
+            ((ImageView)sourceComponent).setImage(newImage);
+            int[] checkMatchPair = memory.storePiece(rowSelected, colSelected);
+            if(checkMatchPair != null){
+                Image questionImage = new Image(Application.getResource(memory.getQuestionImage()).toExternalForm());
+                ((ImageView)gameMatrix.getChildren().get(checkMatchPair[0])).setImage(questionImage);
+                ((ImageView)gameMatrix.getChildren().get(checkMatchPair[1])).setImage(questionImage);
             }
         }
     }
 
 
+    public void startButtonClick(){
+        startNewGame();
+    }
+
+    //START NEW GAME
+    public void startNewGame(){
+        memory.setUpBoard();
+        gameMatrix.getChildren().clear();
+
+        //creating the image object
+        Image questionImage = new Image(Application.getResource(memory.getQuestionImage()).toExternalForm());
+
+        for(int r=0; r<memory.getBoardHeight(); r++){
+            for(int c=0; c<memory.getBoardWidth(); c++){
+                //creating the image view
+                ImageView imageView = new ImageView(questionImage);
+                imageView.setFitWidth(memory.getTileSize());
+                imageView.setFitHeight(memory.getTileSize());
+                imageView.setUserData(r +"," + c);
+                imageView.setOnMouseClicked(mouseEvent -> cardListener(mouseEvent));
+                gameMatrix.add(imageView, c, r);
+            }
+        }
+    }
 }

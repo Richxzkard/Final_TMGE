@@ -1,15 +1,24 @@
 package com.example.final_tmge.src;
 
+import java.util.Random;
+
 public class MemoryTileGenerator implements TileGenerator {
 
     String possiblePieces[];
+    Random randomGenerator = new Random();
     public MemoryTileGenerator(){
-        possiblePieces  = new String[]{"blue_gem", "green_gem", "orange_gem", "purple_gem", "red_gem", "white_gem", "yellow_gem"};
+        possiblePieces  = new String[]{"heart", "jewel", "spade", "star", "teddy"};
     }
 
     @Override
     public GamePiece generateTile() {
-        throw new UnsupportedOperationException("Unimplemented method 'generateTile'");
+        //Get Image for this gamePiece
+        int nextImageIndex = randomGenerator.nextInt(possiblePieces.length);
+        String randomImage = possiblePieces[nextImageIndex];
+        return new MemoryPiece(randomImage);
     }
-    
+
+    public MemoryPiece copyTile(MemoryPiece mp){
+        return new MemoryPiece(mp.getId());
+    }
 }
