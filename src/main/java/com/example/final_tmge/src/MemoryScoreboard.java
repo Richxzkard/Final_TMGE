@@ -45,6 +45,8 @@ public class MemoryScoreboard implements iScore {
         return player2Matches;
     }
 
-    public int getTurnsLeft
+    public int getTurnsLeft(){
+        return 0;
+    }
     
 }
