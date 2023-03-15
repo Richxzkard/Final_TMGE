@@ -25,4 +25,7 @@ public class MemoryPiece extends GamePiece {
     public void toggleIsUp(){
         isUp = !isUp;
     }
+    public void clearedPiece(){
+        id = "cleared";
+    }
 }

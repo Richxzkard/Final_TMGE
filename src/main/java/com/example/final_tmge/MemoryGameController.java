@@ -37,6 +37,9 @@ public class MemoryGameController {
                 ((ImageView)gameMatrix.getChildren().get(checkMatchPair[0])).setImage(questionImage);
                 ((ImageView)gameMatrix.getChildren().get(checkMatchPair[1])).setImage(questionImage);
             }
+            else{
+                
+            }
         }
     }
 

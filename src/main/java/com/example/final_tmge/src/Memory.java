@@ -85,6 +85,8 @@ public class Memory extends TMGE {
         MemoryPiece firstPiece = (MemoryPiece) board.getGamePiece(first.getKey(), first.getValue());
         MemoryPiece secondPiece = (MemoryPiece) board.getGamePiece(second.getKey(), second.getValue());
         if(firstPiece.equals(secondPiece)){
+            firstPiece.clearedPiece();
+            secondPiece.clearedPiece();
             return true;
         }else{
             firstPiece.toggleIsUp();
