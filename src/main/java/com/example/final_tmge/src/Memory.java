@@ -40,6 +40,8 @@ public class Memory extends TMGE {
         return "/img/question.png";
     }
 
+    public String getClearImage(){return "/img/cleared.png";}
+
     //TODO: JUST FOR GUI DEVELOPMENT
     //RETURN THE IMAGE PATH BY ROW AND COLUMN AND SET THAT PIECE UP
     public String getPath(int row, int column){
@@ -69,7 +71,11 @@ public class Memory extends TMGE {
             secondCoordination = new Pair<>(row, column);
         }else{
             if(!checkMatch(firstCoordination, secondCoordination)){
-                returnVal = new int[]{
+                returnVal = new int[]{0,
+                        firstCoordination.getKey()*getBoardWidth() + firstCoordination.getValue(),
+                        secondCoordination.getKey()*getBoardWidth() + secondCoordination.getValue()};
+            }else{
+                returnVal = new int[]{1,
                         firstCoordination.getKey()*getBoardWidth() + firstCoordination.getValue(),
                         secondCoordination.getKey()*getBoardWidth() + secondCoordination.getValue()};
             }
@@ -85,6 +91,8 @@ public class Memory extends TMGE {
         MemoryPiece firstPiece = (MemoryPiece) board.getGamePiece(first.getKey(), first.getValue());
         MemoryPiece secondPiece = (MemoryPiece) board.getGamePiece(second.getKey(), second.getValue());
         if(firstPiece.equals(secondPiece)){
+            firstPiece.clearedPiece();
+            secondPiece.clearedPiece();
             return true;
         }else{
             firstPiece.toggleIsUp();

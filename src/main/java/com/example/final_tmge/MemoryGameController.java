@@ -32,10 +32,17 @@ public class MemoryGameController {
             Image newImage = new Image(Application.getResource(image).toExternalForm());
             ((ImageView)sourceComponent).setImage(newImage);
             int[] checkMatchPair = memory.storePiece(rowSelected, colSelected);
-            if(checkMatchPair != null){
-                Image questionImage = new Image(Application.getResource(memory.getQuestionImage()).toExternalForm());
-                ((ImageView)gameMatrix.getChildren().get(checkMatchPair[0])).setImage(questionImage);
-                ((ImageView)gameMatrix.getChildren().get(checkMatchPair[1])).setImage(questionImage);
+            Image updateImage;
+            if(checkMatchPair != null && checkMatchPair[0] == 1){
+                updateImage = new Image(Application.getResource(memory.getClearImage()).toExternalForm());
+            }
+            else{
+                updateImage = new Image(Application.getResource(memory.getQuestionImage()).toExternalForm());
+            }
+
+            if(checkMatchPair != null && updateImage != null){
+                ((ImageView)gameMatrix.getChildren().get(checkMatchPair[1])).setImage(updateImage);
+                ((ImageView)gameMatrix.getChildren().get(checkMatchPair[2])).setImage(updateImage);
             }
         }
     }
