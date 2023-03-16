@@ -26,7 +26,7 @@ public class MemoryGameController {
 
     public void initialize() throws IOException {
         //Set Up Score Board, initailize scoreBoard
-        scoreList = FXCollections.observableArrayList("Turns Left: ", "0",
+        scoreList = FXCollections.observableArrayList("Pairs Left: ", "0",
                 memory.getPlayer1Name() + "'s Score: ", "0",
                 memory.getPlayer2Name() + "'s Score: ", "0");
         scoreBoard.setSelectionModel(null); //disable the selection mode
