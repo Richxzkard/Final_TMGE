@@ -11,8 +11,10 @@ import java.net.URL;
 public class Application extends javafx.application.Application {
 
     public static TMGE GamePlay;
+    private Stage stage;
     @Override
     public void start(Stage stage) throws IOException {
+        this.stage = stage;
         GameMenu menu = new GameMenu();
 
         String player1Name = Main.getUserInput("Please enter your name Player 1: ");
@@ -47,6 +49,15 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
+    public void restart() {
+        try {
+            start(new Stage());
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static URL getResource(String path){
         return Application.class.getResource(path);
     }
@@ -54,4 +65,6 @@ public class Application extends javafx.application.Application {
     public static void main(String[] args) {
         launch();
     }
+
+
 }
