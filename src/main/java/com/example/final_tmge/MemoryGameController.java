@@ -44,7 +44,7 @@ public class MemoryGameController {
         scoreList.set(5, scoreBoardInfo[2]); //player2 score
 
         //Game Ends
-        if(scoreBoardInfo[0].equals("16")){
+        if(scoreBoardInfo[0].equals("0")){
 
             // Create a new Alert with a type of INFORMATION
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
