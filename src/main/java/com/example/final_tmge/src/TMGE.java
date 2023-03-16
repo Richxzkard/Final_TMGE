@@ -28,6 +28,13 @@ public abstract class TMGE {
         return this.name;
     }
 
+    public String getPlayer1Name(){
+        return player1.userName;
+    }
+    public String getPlayer2Name(){
+        return player2.userName;
+    }
+
     public static boolean notifyPlayer(int player){
         return true;
     }

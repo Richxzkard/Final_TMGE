@@ -1,10 +1,12 @@
 package com.example.final_tmge.src;
 
+import com.example.final_tmge.MemoryGameController;
 import javafx.util.Pair;
 
 public class Memory extends TMGE {
 
     MemoryBoard board = new MemoryBoard(6, 6);
+    MemoryScoreboard scoreboard = new MemoryScoreboard();
     
     public Memory(String name, Player p1, Player p2) {
         super(name, p1, p2);
@@ -15,6 +17,10 @@ public class Memory extends TMGE {
         return board;
     }
 
+    public MemoryScoreboard getScoreboard(){
+        return scoreboard;
+    }
+
     public int getBoardHeight(){
         return board.getHeight();
     }
@@ -23,11 +29,38 @@ public class Memory extends TMGE {
         return board.getWidth();
     }
 
+    //Starting a new game, Reset all the things
     public void setUpBoard(){
+        //Reset last two piece data
         firstCoordination = null;
         secondCoordination = null;
+        //reset score board
+        scoreboard.resetScores();
+        //reset game board
         board.clearBoard();
         board.setBoard();
+    }
+
+    //Return a String array that contains these information:
+    //[Match Left: Player1's Score, Player2's Score]
+    public String[] getScoreBoardInfo(){
+        return new String[]{String.valueOf(scoreboard.getMatchesLeft()),
+                String.valueOf(scoreboard.getPlayer1Score()),
+                String.valueOf(scoreboard.getPlayer2Score())};
+    }
+
+    //Return winner information
+    public String getWinnerMessage(){
+        int getWinCondition = scoreboard.checkWinCondition();
+        String winner = null;
+        if(getWinCondition == 1){
+            winner = "Winner is " + this.getPlayer1Name();
+        }else if(getWinCondition == 2){
+            winner = "Winner is " + this.getPlayer2Name();
+        }else{
+            winner = "The Game is Tie";
+        }
+        return winner;
     }
 
     //TODO: JUST FOR GUI DEVELOPMENT, MOVE THE SIZE, 90, TO THE CORRESPONDING FILE AND UPDATE THIS FUNCTION'S BODY LATER ON
@@ -70,15 +103,17 @@ public class Memory extends TMGE {
         }else if(secondCoordination == null){
             secondCoordination = new Pair<>(row, column);
         }else{
-            if(!checkMatch(firstCoordination, secondCoordination)){
+            if(!checkMatch(firstCoordination, secondCoordination)){ //NOT MATCH
                 returnVal = new int[]{0,
                         firstCoordination.getKey()*getBoardWidth() + firstCoordination.getValue(),
                         secondCoordination.getKey()*getBoardWidth() + secondCoordination.getValue()};
-            }else{
+            }else{ //MATCH
+                scoreboard.updateScore(); //new match happens, update score
                 returnVal = new int[]{1,
                         firstCoordination.getKey()*getBoardWidth() + firstCoordination.getValue(),
                         secondCoordination.getKey()*getBoardWidth() + secondCoordination.getValue()};
             }
+            scoreboard.toggleTurn(); //next turn
             firstCoordination = new Pair<>(row, column);
             secondCoordination = null;
         }
