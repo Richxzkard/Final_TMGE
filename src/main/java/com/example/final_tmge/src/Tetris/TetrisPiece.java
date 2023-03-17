@@ -7,10 +7,16 @@ import javafx.scene.shape.Rectangle;
 import java.util.HashMap;
 
 public class TetrisPiece extends GamePiece {
-    Rectangle a;
-    Rectangle b;
-    Rectangle c;
-    Rectangle d;
+    public static final int MOVE = Tetris.MOVE;
+    public static final int SIZE = Tetris.SIZE;
+    public static int XMAX = Tetris.XMAX;
+    public static int YMAX = Tetris.YMAX;
+    public static int[][] MESH = Tetris.MESH;
+
+    public Rectangle a;
+    public Rectangle b;
+    public Rectangle c;
+    public Rectangle d;
     Color color;
 
     HashMap<String, Color> piece;
@@ -64,5 +70,7 @@ public class TetrisPiece extends GamePiece {
     public void changeForm() {
         form = form%4 + 1;
     }
+
+
 
 }
