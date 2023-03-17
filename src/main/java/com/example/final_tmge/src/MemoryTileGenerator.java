@@ -6,8 +6,13 @@ public class MemoryTileGenerator implements TileGenerator {
 
     String possiblePieces[];
     Random randomGenerator = new Random();
+    int TileSize = 0;
+    GamePiece questionGamePiece = new MemoryPiece();
+    GamePiece checkGamePiece = new MemoryPiece("cleared");
+
     public MemoryTileGenerator(){
         possiblePieces  = new String[]{"heart", "jewel", "spade", "star", "teddy"};
+        TileSize = 90;
     }
 
     @Override
