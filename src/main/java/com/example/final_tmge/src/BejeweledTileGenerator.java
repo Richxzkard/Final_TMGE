@@ -14,7 +14,7 @@ public class BejeweledTileGenerator implements TileGenerator{
         heart = new Gem("heart");
         jewel = new Gem("jewel");
         question = new Gem("question");
-        spade = new Gem("star");
+        spade = new Gem("spade");
         star = new Gem("star");
         teddy = new Gem("teddy");
 
