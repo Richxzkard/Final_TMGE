@@ -4,7 +4,6 @@ public class BejeweledScoreboard implements iScore {
 
     private int score = 0;
 
-
     public void updatePlayerScore(int score) {
         throw new UnsupportedOperationException("Unimplemented method 'updateScore'");
     }

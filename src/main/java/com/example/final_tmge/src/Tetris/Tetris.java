@@ -19,8 +19,13 @@ public class Tetris extends TMGE {
     public static int[][] MESH = new int[XMAX / SIZE][YMAX / SIZE];
 
 
+    TetrisScoreboard scoreboard;
+    TetrisBoard board;
+
     public Tetris(String name, Player p1, Player p2) {
         super(name, p1, p2);
+        board = new TetrisBoard(width, height);
+        scoreboard = new TetrisScoreboard(2, board);
     }
 
     public void startNewGame(Pane leftPane, Pane rightPane){

@@ -55,15 +55,10 @@ public class MemoryGameController {
             alert.setContentText("Click OK to Finish the Game");
             // Show the alert and wait for user response
             alert.showAndWait();
-            //Close the game Window
-            Stage stage = (Stage) scoreBoard.getScene().getWindow();
-            stage.close();
-            Application application = new Application();
-            application.restart();
+            closeGame();
         }
     }
 
-    //TODO: CHECK IF THE GAME END
     public void cardListener(MouseEvent event){
         Node sourceComponent = (Node) event.getSource();
         String rowAndColumn = (String) sourceComponent.getUserData();
@@ -88,6 +83,14 @@ public class MemoryGameController {
                 ((ImageView)gameMatrix.getChildren().get(checkMatchPair[2])).setImage(updateImage);
             }
         }
+    }
+
+    public void closeGame(){
+        //Close the game Window
+        Stage stage = (Stage) scoreBoard.getScene().getWindow();
+        stage.close();
+        Application application = new Application();
+        application.restart();
     }
 
 

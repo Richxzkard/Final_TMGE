@@ -58,22 +58,19 @@ public class Memory extends TMGE {
         }else if(getWinCondition == 2){
             winner = "Winner is " + this.getPlayer2Name();
         }else{
-            winner = "The Game is Tie";
+            winner = "The Game is a Tie";
         }
         return winner;
     }
 
-    //TODO: JUST FOR GUI DEVELOPMENT, MOVE THE SIZE, 90, TO THE CORRESPONDING FILE AND UPDATE THIS FUNCTION'S BODY LATER ON
     public int getTileSize(){
-        return 90;
+        return board.mtg.TileSize;
     }
-
-    //TODO: JUST FOR GUI DEVELOPMENT, CALL THE CORRESPONDING FUNCTION IN SOME FILE AND UPDATE THE BODY OF THIS FUNCTION
     public String getQuestionImage(){
-        return "/img/question.png";
+        return board.mtg.questionGamePiece.pngPath();
     }
 
-    public String getClearImage(){return "/img/cleared.png";}
+    public String getClearImage(){return board.mtg.checkGamePiece.pngPath();}
 
     //TODO: JUST FOR GUI DEVELOPMENT
     //RETURN THE IMAGE PATH BY ROW AND COLUMN AND SET THAT PIECE UP
@@ -126,8 +123,6 @@ public class Memory extends TMGE {
         MemoryPiece firstPiece = (MemoryPiece) board.getGamePiece(first.getKey(), first.getValue());
         MemoryPiece secondPiece = (MemoryPiece) board.getGamePiece(second.getKey(), second.getValue());
         if(firstPiece.equals(secondPiece)){
-            firstPiece.clearedPiece();
-            secondPiece.clearedPiece();
             return true;
         }else{
             firstPiece.toggleIsUp();
