@@ -1,5 +1,6 @@
-package com.example.final_tmge.src;
+package com.example.final_tmge.src.Tetris;
 
+import com.example.final_tmge.src.HorizontalMatch;
 import com.example.final_tmge.src.Tetris.TetrisBoard;
 
 import java.util.Timer;

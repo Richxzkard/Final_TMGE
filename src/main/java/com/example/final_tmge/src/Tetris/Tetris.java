@@ -7,8 +7,13 @@ public class Tetris extends TMGE {
     private int width = 12;
     private int height = 24;
 
+    TetrisScoreboard scoreboard;
+    TetrisBoard board;
+
     public Tetris(String name, Player p1, Player p2) {
         super(name, p1, p2);
+        board = new TetrisBoard(width, height);
+        scoreboard = new TetrisScoreboard(2, board);
     }
 
     public void setUpBoard(){
