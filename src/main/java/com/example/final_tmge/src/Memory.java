@@ -58,7 +58,7 @@ public class Memory extends TMGE {
         }else if(getWinCondition == 2){
             winner = "Winner is " + this.getPlayer2Name();
         }else{
-            winner = "The Game is Tie";
+            winner = "The Game is a Tie";
         }
         return winner;
     }
