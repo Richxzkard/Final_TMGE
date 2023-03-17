@@ -55,7 +55,6 @@ public class MemoryGameController {
             alert.setContentText("Click OK to Finish the Game");
             // Show the alert and wait for user response
             alert.showAndWait();
-
             closeGame();
         }
     }

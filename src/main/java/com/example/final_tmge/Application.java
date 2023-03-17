@@ -11,29 +11,41 @@ import java.net.URL;
 public class Application extends javafx.application.Application {
 
     public static TMGE GamePlay;
-    private Stage stage;
-    @Override
-    public void start(Stage stage) throws IOException {
-        this.stage = stage;
-        GameMenu menu = new GameMenu();
 
-        String player1Name = Main.getUserInput("Please enter your name Player 1: ");
-        String player2Name = Main.getUserInput("Please enter your name Player 2: ");
+    String player1Name;
+    String player2Name;
+
+    @Override
+    public void start(Stage stage) throws IOException{
+        player1Name = Main.getUserInput("Please enter your name Player 1: ");
+        player2Name = Main.getUserInput("Please enter your name Player 2: ");
+
+        startGame(stage);
+    }
+
+    public void restart() {
+        try {
+            startGame(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startGame(Stage stage) throws IOException{
         Player player1 = new Player(player1Name);
         Player player2 = new Player(player2Name);
-
         Memory memory = new Memory("Memory", player1, player2);
         TileGenerator.Bejeweled bejeweled = new TileGenerator.Bejeweled("Bejeweled", player1, player2);
-        menu.addGame(bejeweled);
-        menu.addGame(memory);
-
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.addGame(bejeweled);
+        gameMenu.addGame(memory);
         //print out the menu and get user input
-        int selection = Main.getUserSelection("GAME MENU", menu.getMenuList());
+        int selection = Main.getUserSelection("GAME MENU", gameMenu.getMenuList());
 
         //Get to know to pop up which game UI
         String title = "";
         String fxmlFile = "";
-        GamePlay = menu.getGame(selection);
+        GamePlay = gameMenu.getGame(selection);
         if(GamePlay.getGameName().equals("Memory")){
             title = "Memory Game";
             fxmlFile = "MemoryGameUI.fxml";
@@ -49,19 +61,12 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
-    public void restart() {
-        try {
-            start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static URL getResource(String path){
         return Application.class.getResource(path);
     }
 
     public static void main(String[] args) {
+
         launch();
     }
 
