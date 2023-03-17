@@ -52,7 +52,6 @@ public class Application extends javafx.application.Application {
     public void restart() {
         try {
             start(new Stage());
-            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
