@@ -63,7 +63,6 @@ public class MemoryGameController {
         }
     }
 
-    //TODO: CHECK IF THE GAME END
     public void cardListener(MouseEvent event){
         Node sourceComponent = (Node) event.getSource();
         String rowAndColumn = (String) sourceComponent.getUserData();
