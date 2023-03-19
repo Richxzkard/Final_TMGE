@@ -8,6 +8,10 @@ public abstract class GamePiece{
         this.id = id;
     }
 
+    public GamePiece() {
+
+    }
+
     public String getId(){
         return id;
     }

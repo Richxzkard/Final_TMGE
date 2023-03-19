@@ -11,7 +11,7 @@ public class TetrisScoreboard {
     class CheckMatchTask extends TimerTask{
         @Override
         public void run(){
-            match.findMatches(board.getBoardPieces());
+//            match.findMatches(board.getBoardPieces());
         }
     }
 

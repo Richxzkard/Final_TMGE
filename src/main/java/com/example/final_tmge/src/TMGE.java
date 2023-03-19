@@ -3,8 +3,8 @@ package com.example.final_tmge.src;
 public abstract class TMGE {
 
     String name;
-    Player player1;
-    Player player2;
+    protected Player player1;
+    protected Player player2;
 
     public TMGE(String name, Player p1, Player p2){
         this.name = name;

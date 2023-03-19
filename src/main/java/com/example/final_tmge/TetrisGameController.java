@@ -1,515 +1,132 @@
 package com.example.final_tmge;
 
 import com.example.final_tmge.src.Tetris.Tetris;
+import com.example.final_tmge.src.Tetris.TetrisBoard;
 import com.example.final_tmge.src.Tetris.TetrisPiece;
 import com.example.final_tmge.src.Tetris.TetrisPieceGenerator;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import java.awt.*;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class TetrisGameController {
     public Button start;
-    public int top;
-    public boolean game;
-    private static final Tetris tetris = (Tetris)Application.GamePlay;
+    private static final Tetris tetris = (Tetris) Application.GamePlay;
     public Pane gameMatrixleft;
     public Pane gameMatrixright;
     public AnchorPane holder;
 
-    public static final int MOVE = 25;
-    public static final int SIZE = 25;
-    public static int XMAX = SIZE * 12;
-    public static int YMAX = SIZE * 24;
-    public TetrisPiece object;
-    public int[][] MESH = Tetris.MESH;
-    private static int linesNo = 0;
-    private static TetrisPiece nextObj = (TetrisPiece) new TetrisPieceGenerator().generateTile();
+    // This is the Tetris piece fall down interval in milliseconds. The lower the value the higher the speed.
+    private int fallDownInterval = 200;
+    private TetrisPiece currentPiece1;
+
+    private TetrisPiece currentPiece2;
+
+    private TetrisPieceGenerator tileGenerator;
 
     public void initialize() throws IOException {
-        startNewGame();
         start.setOnMouseClicked(event -> startNewGame());
+        tileGenerator =  new TetrisPieceGenerator();
+        tileGenerator.Initialize(tetris.board1.GetBlockSize(), tetris.getXBlocks());
     }
 
-    public void startNewGame(){
+    public void startNewGame() {
         tetris.startNewGame(gameMatrixleft, gameMatrixright);
+        startNewGameForPlayer1();
+        startNewGameForPlayer2();
+    }
 
-        TetrisPiece a = nextObj;
-        gameMatrixleft.getChildren().addAll(a.a, a.b, a.c, a.d);
-        moveOnKeyPress(a);
-        object = a;
-        nextObj = (TetrisPiece) new TetrisPieceGenerator().generateTile();
-
-        Timer fall = new Timer();
+    private void startNewGameForPlayer1() {
+        updateCurrentPiecesForPlayer1().run();
+        Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        if (object.a.getY() == 0 || object.b.getY() == 0 || object.c.getY() == 0
-                                || object.d.getY() == 0)
-                            top++;
-                        else
-                            top = 0;
-
-                        if (top == 2) {
-                            // GAME OVER
-                            Text over = new Text("GAME OVER");
-                            over.setFill(Color.RED);
-                            over.setStyle("-fx-font: 70 arial;");
-                            over.setY(250);
-                            over.setX(10);
-                            gameMatrixleft.getChildren().add(over);
-                            game = false;
-                        }
-                        // Exit
-                        if (top == 15) {
-                            System.exit(0);
-                        }
-
-                        if (game) {
-                            MoveDown(object);
-                        }
-                    }
-                });
+                runGame(tetris.board1, currentPiece1, updateCurrentPiecesForPlayer1());
             }
         };
-        fall.schedule(task, 0, 300);
+        timer.schedule(task, 0, fallDownInterval);
+    }
+    private void startNewGameForPlayer2() {
+        updateCurrentPiecesForPlayer2().run();
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                runGame(tetris.board2, currentPiece2, updateCurrentPiecesForPlayer2());
+            }
+        };
+        timer.schedule(task, 0, fallDownInterval);
     }
 
-
-    public void moveOnKeyPress(TetrisPiece piece) {
+    private void registerKeys() {
         holder.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                    case RIGHT:
-                        Tetris.MoveRight(piece);
+                switch (event.getCode()){
+                    case W:
+                        tetris.board1.MoveTurn(currentPiece1);
                         break;
-                    case DOWN:
-                        MoveDown(piece);
+                    case S:
+                        tetris.board1.MoveDown(currentPiece1);
                         break;
-                    case LEFT:
-                        Tetris.MoveLeft(piece);
+                    case A:
+                        tetris.board1.MoveLeft(currentPiece1);
                         break;
-                    case UP:
-                        MoveTurn(piece);
+                    case D:
+                        tetris.board1.MoveRight(currentPiece1);
+                        break;
+                    case I:
+                        tetris.board2.MoveTurn(currentPiece2);
+                        break;
+                    case K:
+                        tetris.board2.MoveDown(currentPiece2);
+                        break;
+                    case J:
+                        tetris.board2.MoveLeft(currentPiece2);
+                        break;
+                    case L:
+                        tetris.board2.MoveRight(currentPiece2);
                         break;
                 }
             }
         });
     }
 
-    public void MoveDown(TetrisPiece form) {
-        if (form.a.getY() == YMAX - SIZE || form.b.getY() == YMAX - SIZE || form.c.getY() == YMAX - SIZE
-                || form.d.getY() == YMAX - SIZE || tetris.moveA(form) || tetris.moveB(form) || tetris.moveC(form) || tetris.moveD(form)) {
-            MESH[(int) form.a.getX() / SIZE][(int) form.a.getY() / SIZE] = 1;
-            MESH[(int) form.b.getX() / SIZE][(int) form.b.getY() / SIZE] = 1;
-            MESH[(int) form.c.getX() / SIZE][(int) form.c.getY() / SIZE] = 1;
-            MESH[(int) form.d.getX() / SIZE][(int) form.d.getY() / SIZE] = 1;
-            RemoveRows(gameMatrixleft);
-
-            TetrisPiece a = nextObj;
-            nextObj = (TetrisPiece) new TetrisPieceGenerator().generateTile();
-            object = a;
-            gameMatrixleft.getChildren().addAll(a.a, a.b, a.c, a.d);
-            moveOnKeyPress(a);
-        }
-
-        if (form.a.getY() + MOVE < YMAX && form.b.getY() + MOVE < YMAX && form.c.getY() + MOVE < YMAX
-                && form.d.getY() + MOVE < YMAX) {
-            int movea = MESH[(int) form.a.getX() / SIZE][((int) form.a.getY() / SIZE) + 1];
-            int moveb = MESH[(int) form.b.getX() / SIZE][((int) form.b.getY() / SIZE) + 1];
-            int movec = MESH[(int) form.c.getX() / SIZE][((int) form.c.getY() / SIZE) + 1];
-            int moved = MESH[(int) form.d.getX() / SIZE][((int) form.d.getY() / SIZE) + 1];
-            if (movea == 0 && movea == moveb && moveb == movec && movec == moved) {
-                form.a.setY(form.a.getY() + MOVE);
-                form.b.setY(form.b.getY() + MOVE);
-                form.c.setY(form.c.getY() + MOVE);
-                form.d.setY(form.d.getY() + MOVE);
-            }
-        }
+    private Runnable updateCurrentPiecesForPlayer1() {
+        return () -> {
+            currentPiece1 = (TetrisPiece) tileGenerator.generateTile();
+            gameMatrixleft.getChildren().addAll(currentPiece1.a, currentPiece1.b, currentPiece1.c, currentPiece1.d);
+            registerKeys();
+        };
+    }
+    private Runnable updateCurrentPiecesForPlayer2() {
+        return () -> {
+            currentPiece2 = (TetrisPiece) tileGenerator.generateTile();
+            gameMatrixright.getChildren().addAll(currentPiece2.a, currentPiece2.b, currentPiece2.c, currentPiece2.d);
+            registerKeys();
+        };
     }
 
-    private void MoveDown(Rectangle rect) {
-        if (rect.getY() + MOVE < YMAX)
-            rect.setY(rect.getY() + MOVE);
-
-    }
-
-
-    private void RemoveRows(Pane pane) {
-        ArrayList<Node> rects = new ArrayList<Node>();
-        ArrayList<Integer> lines = new ArrayList<Integer>();
-        ArrayList<Node> newrects = new ArrayList<Node>();
-        int full = 0;
-        for (int i = 0; i < MESH[0].length; i++) {
-            for (int j = 0; j < MESH.length; j++) {
-                if (MESH[j][i] == 1)
-                    full++;
-            }
-            if (full == MESH.length)
-                lines.add(i);
-            //lines.add(i + lines.size());
-            full = 0;
-        }
-        if (lines.size() > 0)
-            do {
-                for (Node node : pane.getChildren()) {
-                    if (node instanceof Rectangle)
-                        rects.add(node);
-                }
-                linesNo++;
-
-                for (Node node : rects) {
-                    Rectangle a = (Rectangle) node;
-                    if (a.getY() == lines.get(0) * SIZE) {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 0;
-                        pane.getChildren().remove(node);
-                    } else
-                        newrects.add(node);
-                }
-
-                for (Node node : newrects) {
-                    Rectangle a = (Rectangle) node;
-                    if (a.getY() < lines.get(0) * SIZE) {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 0;
-                        a.setY(a.getY() + SIZE);
+    private void runGame(TetrisBoard board, TetrisPiece piece, Runnable currentPieceUpdater) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                boolean pieceMoved = board.MoveDown(piece);
+                if (!pieceMoved) {
+                    if (piece.isStuckAtTop()) {
+                        board.GameOver();
+                    } else {
+                        currentPieceUpdater.run();
                     }
                 }
-                lines.remove(0);
-                rects.clear();
-                newrects.clear();
-                for (Node node : pane.getChildren()) {
-                    if (node instanceof Rectangle)
-                        rects.add(node);
-                }
-                for (Node node : rects) {
-                    Rectangle a = (Rectangle) node;
-                    try {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 1;
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                    }
-                }
-                rects.clear();
-            } while (lines.size() > 0);
+            }
+        });
     }
-
-    private void MoveTurn(TetrisPiece form) {
-        int f = form.form;
-        Rectangle a = form.a;
-        Rectangle b = form.b;
-        Rectangle c = form.c;
-        Rectangle d = form.d;
-        switch (form.getName()) {
-            case "j":
-                if (f == 1 && tetris.cB(a, 1, -1) && tetris.cB(c, -1, -1) && tetris.cB(d, -2, -2)) {
-                    MoveRight(form.a);
-                    MoveDown(form.a);
-                    MoveDown(form.c);
-                    MoveLeft(form.c);
-                    MoveDown(form.d);
-                    MoveDown(form.d);
-                    MoveLeft(form.d);
-                    MoveLeft(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 2 && tetris.cB(a, -1, -1) && tetris.cB(c, -1, 1) && tetris.cB(d, -2, 2)) {
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    MoveLeft(form.d);
-                    MoveLeft(form.d);
-                    MoveUp(form.d);
-                    MoveUp(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 3 && tetris.cB(a, -1, 1) && tetris.cB(c, 1, 1) && tetris.cB(d, 2, 2)) {
-                    MoveLeft(form.a);
-                    MoveUp(form.a);
-                    MoveUp(form.c);
-                    MoveRight(form.c);
-                    MoveUp(form.d);
-                    MoveUp(form.d);
-                    MoveRight(form.d);
-                    MoveRight(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 4 && tetris.cB(a, 1, 1) && tetris.cB(c, 1, -1) && tetris.cB(d, 2, -2)) {
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    MoveRight(form.d);
-                    MoveRight(form.d);
-                    MoveDown(form.d);
-                    MoveDown(form.d);
-                    form.changeForm();
-                    break;
-                }
-                break;
-            case "l":
-                if (f == 1 && tetris.cB(a, 1, -1) && tetris.cB(c, 1, 1) && tetris.cB(b, 2, 2)) {
-                    MoveRight(form.a);
-                    MoveDown(form.a);
-                    MoveUp(form.c);
-                    MoveRight(form.c);
-                    MoveUp(form.b);
-                    MoveUp(form.b);
-                    MoveRight(form.b);
-                    MoveRight(form.b);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 2 && tetris.cB(a, -1, -1) && tetris.cB(b, 2, -2) && tetris.cB(c, 1, -1)) {
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveRight(form.b);
-                    MoveRight(form.b);
-                    MoveDown(form.b);
-                    MoveDown(form.b);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 3 && tetris.cB(a, -1, 1) && tetris.cB(c, -1, -1) && tetris.cB(b, -2, -2)) {
-                    MoveLeft(form.a);
-                    MoveUp(form.a);
-                    MoveDown(form.c);
-                    MoveLeft(form.c);
-                    MoveDown(form.b);
-                    MoveDown(form.b);
-                    MoveLeft(form.b);
-                    MoveLeft(form.b);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 4 && tetris.cB(a, 1, 1) && tetris.cB(b, -2, 2) && tetris.cB(c, -1, 1)) {
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveLeft(form.b);
-                    MoveLeft(form.b);
-                    MoveUp(form.b);
-                    MoveUp(form.b);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    form.changeForm();
-                    break;
-                }
-                break;
-            case "o":
-                break;
-            case "s":
-                if (f == 1 && tetris.cB(a, -1, -1) && tetris.cB(c, -1, 1) && tetris.cB(d, 0, 2)) {
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    MoveUp(form.d);
-                    MoveUp(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 2 && tetris.cB(a, 1, 1) && tetris.cB(c, 1, -1) && tetris.cB(d, 0, -2)) {
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    MoveDown(form.d);
-                    MoveDown(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 3 && tetris.cB(a, -1, -1) && tetris.cB(c, -1, 1) && tetris.cB(d, 0, 2)) {
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    MoveUp(form.d);
-                    MoveUp(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 4 && tetris.cB(a, 1, 1) && tetris.cB(c, 1, -1) && tetris.cB(d, 0, -2)) {
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    MoveDown(form.d);
-                    MoveDown(form.d);
-                    form.changeForm();
-                    break;
-                }
-                break;
-            case "t":
-                if (f == 1 && tetris.cB(a, 1, 1) && tetris.cB(d, -1, -1) && tetris.cB(c, -1, 1)) {
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveDown(form.d);
-                    MoveLeft(form.d);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 2 && tetris.cB(a, 1, -1) && tetris.cB(d, -1, 1) && tetris.cB(c, 1, 1)) {
-                    MoveRight(form.a);
-                    MoveDown(form.a);
-                    MoveLeft(form.d);
-                    MoveUp(form.d);
-                    MoveUp(form.c);
-                    MoveRight(form.c);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 3 && tetris.cB(a, -1, -1) && tetris.cB(d, 1, 1) && tetris.cB(c, 1, -1)) {
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveUp(form.d);
-                    MoveRight(form.d);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 4 && tetris.cB(a, -1, 1) && tetris.cB(d, 1, -1) && tetris.cB(c, -1, -1)) {
-                    MoveLeft(form.a);
-                    MoveUp(form.a);
-                    MoveRight(form.d);
-                    MoveDown(form.d);
-                    MoveDown(form.c);
-                    MoveLeft(form.c);
-                    form.changeForm();
-                    break;
-                }
-                break;
-            case "z":
-                if (f == 1 && tetris.cB(b, 1, 1) && tetris.cB(c, -1, 1) && tetris.cB(d, -2, 0)) {
-                    MoveUp(form.b);
-                    MoveRight(form.b);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    MoveLeft(form.d);
-                    MoveLeft(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 2 && tetris.cB(b, -1, -1) && tetris.cB(c, 1, -1) && tetris.cB(d, 2, 0)) {
-                    MoveDown(form.b);
-                    MoveLeft(form.b);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    MoveRight(form.d);
-                    MoveRight(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 3 && tetris.cB(b, 1, 1) && tetris.cB(c, -1, 1) && tetris.cB(d, -2, 0)) {
-                    MoveUp(form.b);
-                    MoveRight(form.b);
-                    MoveLeft(form.c);
-                    MoveUp(form.c);
-                    MoveLeft(form.d);
-                    MoveLeft(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 4 && tetris.cB(b, -1, -1) && tetris.cB(c, 1, -1) && tetris.cB(d, 2, 0)) {
-                    MoveDown(form.b);
-                    MoveLeft(form.b);
-                    MoveRight(form.c);
-                    MoveDown(form.c);
-                    MoveRight(form.d);
-                    MoveRight(form.d);
-                    form.changeForm();
-                    break;
-                }
-                break;
-            case "i":
-                if (f == 1 && tetris.cB(a, 2, 2) && tetris.cB(b, 1, 1) && tetris.cB(d, -1, -1)) {
-                    MoveUp(form.a);
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveRight(form.a);
-                    MoveUp(form.b);
-                    MoveRight(form.b);
-                    MoveDown(form.d);
-                    MoveLeft(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 2 && tetris.cB(a, -2, -2) && tetris.cB(b, -1, -1) && tetris.cB(d, 1, 1)) {
-                    MoveDown(form.a);
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveLeft(form.a);
-                    MoveDown(form.b);
-                    MoveLeft(form.b);
-                    MoveUp(form.d);
-                    MoveRight(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 3 && tetris.cB(a, 2, 2) && tetris.cB(b, 1, 1) && tetris.cB(d, -1, -1)) {
-                    MoveUp(form.a);
-                    MoveUp(form.a);
-                    MoveRight(form.a);
-                    MoveRight(form.a);
-                    MoveUp(form.b);
-                    MoveRight(form.b);
-                    MoveDown(form.d);
-                    MoveLeft(form.d);
-                    form.changeForm();
-                    break;
-                }
-                if (f == 4 && tetris.cB(a, -2, -2) && tetris.cB(b, -1, -1) && tetris.cB(d, 1, 1)) {
-                    MoveDown(form.a);
-                    MoveDown(form.a);
-                    MoveLeft(form.a);
-                    MoveLeft(form.a);
-                    MoveDown(form.b);
-                    MoveLeft(form.b);
-                    MoveUp(form.d);
-                    MoveRight(form.d);
-                    form.changeForm();
-                    break;
-                }
-                break;
-        }
-    }
-
-    private void MoveRight(Rectangle rect) {
-        if (rect.getX() + MOVE <= XMAX - SIZE)
-            rect.setX(rect.getX() + MOVE);
-    }
-
-    private void MoveLeft(Rectangle rect) {
-        if (rect.getX() - MOVE >= 0)
-            rect.setX(rect.getX() - MOVE);
-    }
-
-    private void MoveUp(Rectangle rect) {
-        if (rect.getY() - MOVE > 0)
-            rect.setY(rect.getY() - MOVE);
-    }
-
-
 }
 

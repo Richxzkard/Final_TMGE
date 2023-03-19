@@ -5,10 +5,14 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<AnchorPane fx:id="holder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.final_tmge.TetrisGameController">
+<AnchorPane fx:id="holder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="647.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.final_tmge.TetrisGameController">
     <children>
-        <Pane fx:id="gameMatrixleft" layoutX="14.0" layoutY="24.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: lightgray;" />
-        <Pane fx:id="gameMatrixright" layoutX="330.0" layoutY="24.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: lightgray;" />
-        <Button fx:id="start" layoutX="661.0" layoutY="30.0" mnemonicParsing="false" text="start" />
+        <Pane fx:id="gameMatrixleft" layoutX="14.0" layoutY="24.0" prefHeight="600.0" prefWidth="300.0"
+              style="-fx-background-color: lightgray;"/>
+        <Pane fx:id="gameMatrixright" layoutX="330.0" layoutY="24.0" prefHeight="600.0" prefWidth="300.0"
+              style="-fx-background-color: lightgray;"/>
+        <Button fx:id="start" layoutX="661.0" layoutY="30.0" mnemonicParsing="false" text="start"/>
     </children>
 </AnchorPane>
