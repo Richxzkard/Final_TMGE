@@ -24,6 +24,9 @@ public class TetrisGameController {
     public Pane gameMatrixright;
     public AnchorPane holder;
 
+    public Timer leftTimer;
+    public Timer rightTimer;
+
     // This is the Tetris piece fall down interval in milliseconds. The lower the value the higher the speed.
     private int fallDownInterval = 200;
     private TetrisPiece currentPiece1;
@@ -39,6 +42,13 @@ public class TetrisGameController {
     }
 
     public void startNewGame() {
+        if (leftTimer != null) {
+            leftTimer.cancel();
+        }
+        if (rightTimer != null) {
+            rightTimer.cancel();
+        }
+
         tetris.startNewGame(gameMatrixleft, gameMatrixright);
         startNewGameForPlayer1();
         startNewGameForPlayer2();
@@ -46,23 +56,24 @@ public class TetrisGameController {
 
     private void startNewGameForPlayer1() {
         updateCurrentPiecesForPlayer1().run();
-        Timer timer = new Timer();
+        leftTimer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 runGame(tetris.board1, currentPiece1, updateCurrentPiecesForPlayer1());
             }
         };
-        timer.schedule(task, 0, fallDownInterval);
+        leftTimer.schedule(task, 0, fallDownInterval);
     }
+
     private void startNewGameForPlayer2() {
         updateCurrentPiecesForPlayer2().run();
-        Timer timer = new Timer();
+        rightTimer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 runGame(tetris.board2, currentPiece2, updateCurrentPiecesForPlayer2());
             }
         };
-        timer.schedule(task, 0, fallDownInterval);
+        rightTimer.schedule(task, 0, fallDownInterval);
     }
 
     private void registerKeys() {
@@ -121,6 +132,8 @@ public class TetrisGameController {
                 if (!pieceMoved) {
                     if (piece.isStuckAtTop()) {
                         board.GameOver();
+                        leftTimer.cancel();
+                        rightTimer.cancel();
                     } else {
                         currentPieceUpdater.run();
                     }

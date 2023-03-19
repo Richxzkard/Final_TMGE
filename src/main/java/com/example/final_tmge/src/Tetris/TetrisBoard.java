@@ -482,7 +482,7 @@ public class TetrisBoard extends Board {
         }
     }
 
-    private void clearMesh() {
+    public void clearMesh() {
         for (int i = 0; i < mesh.length; i++) {
             for (int j = 0; j < mesh[0].length; j++) {
                 mesh[i][j] = false;
