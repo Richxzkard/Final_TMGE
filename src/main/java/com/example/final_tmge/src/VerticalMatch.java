@@ -3,7 +3,7 @@ package com.example.final_tmge.src;
 import java.util.List;
 import java.util.ArrayList;
 
-class VerticalMatch implements iMatch {
+public class VerticalMatch implements iMatch {
     public List<List<Coordinates>> findMatches(GamePiece[][] board) {
         int height = board.length;
         int width = board[0].length;
