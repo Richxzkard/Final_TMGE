@@ -53,6 +53,7 @@ public class Application extends javafx.application.Application {
         //Get to know to pop up which game UI
         //Following the factory pattern that create the new game interface through factory
         Scene scene = interfaceFactory.createScene(GamePlay.getGameName());
+        stage.setTitle(GamePlay.getGameName());
         stage.setScene(scene);
         stage.show();
     }
