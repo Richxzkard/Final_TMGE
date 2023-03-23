@@ -402,11 +402,11 @@ public class TetrisBoard extends Board {
     }
 
     public void GameOver() {
-        Text over = new Text("GAME OVER");
-        over.setFill(Color.RED);
-        over.setStyle("-fx-font: 40 arial;");
-        over.setY(yMax / 2);
-        over.setX(20);
+        Text over = new Text("Game Over");
+        over.setFill(Color.BLACK);
+        over.setStyle("-fx-font: 20 arial;");
+        over.setY(3 * yMax / 4);
+        over.setX(100);
         pane.getChildren().add(over);
     }
 

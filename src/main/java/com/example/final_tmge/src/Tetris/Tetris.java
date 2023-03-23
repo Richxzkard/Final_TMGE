@@ -31,7 +31,6 @@ public class Tetris extends TMGE {
         rightPane.getChildren().clear();
         board1.clearMesh();
         board2.clearMesh();
-        System.out.println("Cleared");
     }
 
     public int getXBlocks() {
