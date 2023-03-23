@@ -1,6 +1,7 @@
 package com.example.final_tmge;
 
 import com.example.final_tmge.src.*;
+import com.example.final_tmge.src.BejeweledGame.Bejeweled;
 import com.example.final_tmge.src.Tetris.Tetris;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,8 +37,7 @@ public class Application extends javafx.application.Application {
         Player player1 = new Player(player1Name);
         Player player2 = new Player(player2Name);
         Memory memory = new Memory("Memory", player1, player2);
-        TileGenerator.Bejeweled bejeweled = new TileGenerator.Bejeweled("Bejeweled", player1, player2);
-
+        Bejeweled bejeweled = new Bejeweled("Bejeweled", player1, player2);
         Tetris tetris = new Tetris("Tetris", player1, player2);
         
         GameMenu gameMenu = new GameMenu();
@@ -58,7 +58,7 @@ public class Application extends javafx.application.Application {
         }
         else if(GamePlay.getGameName().equals("Bejeweled")){
             title = "Bejeweled";
-            fxmlFile = ""; //TODO: BEJEWELED.FXML
+            fxmlFile = "BejeweledGameUI.fxml"; //TODO: BEJEWELED.FXML
         }
         else{
             title = "Tetris";
