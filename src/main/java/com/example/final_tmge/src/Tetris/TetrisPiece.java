@@ -27,32 +27,32 @@ public class TetrisPiece extends GamePiece {
         colorMap.put(NAME.Z, Color.PINK);
     }
 
-    public Rectangle a;
-    public Rectangle b;
-    public Rectangle c;
-    public Rectangle d;
+    public Rectangle pieceFirst;
+    public Rectangle pieceSecond;
+    public Rectangle pieceThird;
+    public Rectangle pieceFourth;
 
     private int state = 1;
 
-    public TetrisPiece(String id, Rectangle a, Rectangle b, Rectangle c, Rectangle d) {
+    public TetrisPiece(String id, Rectangle pieceFirst, Rectangle pieceSecond, Rectangle pieceThird, Rectangle pieceFourth) {
         super(id);
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
+        this.pieceFirst = pieceFirst;
+        this.pieceSecond = pieceSecond;
+        this.pieceThird = pieceThird;
+        this.pieceFourth = pieceFourth;
         Color color = colorMap.get(NAME.valueOf(id));
         setTetrisColor(color);
     }
 
     private void setTetrisColor(Color color) {
-        a.setFill(color);
-        b.setFill(color);
-        c.setFill(color);
-        d.setFill(color);
+        pieceFirst.setFill(color);
+        pieceSecond.setFill(color);
+        pieceThird.setFill(color);
+        pieceFourth.setFill(color);
     }
 
     public boolean isStuckAtTop() {
-        return a.getY() == 0 || b.getY() == 0 || c.getY() == 0 || d.getY() == 0;
+        return pieceFirst.getY() == 0 || pieceSecond.getY() == 0 || pieceThird.getY() == 0 || pieceFourth.getY() == 0;
     }
 
     public void UpdateState() {
@@ -64,27 +64,27 @@ public class TetrisPiece extends GamePiece {
     }
 
     public void moveDown(int dist) {
-        a.setY(a.getY() + dist);
-        b.setY(b.getY() + dist);
-        c.setY(c.getY() + dist);
-        d.setY(d.getY() + dist);
+        pieceFirst.setY(pieceFirst.getY() + dist);
+        pieceSecond.setY(pieceSecond.getY() + dist);
+        pieceThird.setY(pieceThird.getY() + dist);
+        pieceFourth.setY(pieceFourth.getY() + dist);
     }
 
     public void moveLeft(int dist) {
-        a.setX(a.getX() - dist);
-        b.setX(b.getX() - dist);
-        c.setX(c.getX() - dist);
-        d.setX(d.getX() - dist);
+        pieceFirst.setX(pieceFirst.getX() - dist);
+        pieceSecond.setX(pieceSecond.getX() - dist);
+        pieceThird.setX(pieceThird.getX() - dist);
+        pieceFourth.setX(pieceFourth.getX() - dist);
     }
 
     public void moveRight(int dist) {
-        a.setX(a.getX() + dist);
-        b.setX(b.getX() + dist);
-        c.setX(c.getX() + dist);
-        d.setX(d.getX() + dist);
+        pieceFirst.setX(pieceFirst.getX() + dist);
+        pieceSecond.setX(pieceSecond.getX() + dist);
+        pieceThird.setX(pieceThird.getX() + dist);
+        pieceFourth.setX(pieceFourth.getX() + dist);
     }
 
     public ArrayList<Rectangle> getAllParts(){
-        return new ArrayList<Rectangle>(List.of(a, b, c, d));
+        return new ArrayList<Rectangle>(List.of(pieceFirst, pieceSecond, pieceThird, pieceFourth));
     }
 }

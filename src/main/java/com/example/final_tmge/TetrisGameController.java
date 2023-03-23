@@ -120,14 +120,14 @@ public class TetrisGameController implements GameController{
     private Runnable updateCurrentPiecesForPlayer1() {
         return () -> {
             currentPiece1 = (TetrisPiece) tileGenerator.generateTile();
-            gameMatrixleft.getChildren().addAll(currentPiece1.a, currentPiece1.b, currentPiece1.c, currentPiece1.d);
+            gameMatrixleft.getChildren().addAll(currentPiece1.pieceFirst, currentPiece1.pieceSecond, currentPiece1.pieceThird, currentPiece1.pieceFourth);
             registerKeys();
         };
     }
     private Runnable updateCurrentPiecesForPlayer2() {
         return () -> {
             currentPiece2 = (TetrisPiece) tileGenerator.generateTile();
-            gameMatrixright.getChildren().addAll(currentPiece2.a, currentPiece2.b, currentPiece2.c, currentPiece2.d);
+            gameMatrixright.getChildren().addAll(currentPiece2.pieceFirst, currentPiece2.pieceSecond, currentPiece2.pieceThird, currentPiece2.pieceFourth);
             registerKeys();
         };
     }

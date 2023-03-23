@@ -106,10 +106,10 @@ public class TetrisBoard extends Board {
 
     public void pieceReverse(TetrisPiece piece) {
         int state = piece.GetState();
-        Rectangle a = piece.a;
-        Rectangle b = piece.b;
-        Rectangle c = piece.c;
-        Rectangle d = piece.d;
+        Rectangle a = piece.pieceFirst;
+        Rectangle b = piece.pieceSecond;
+        Rectangle c = piece.pieceThird;
+        Rectangle d = piece.pieceFourth;
         switch (TetrisPiece.NAME.valueOf(piece.getId())) {
             case I:
                 if (state == 1 && roomToTurn(a, 2, 2) && roomToTurn(b, 1, 1) && roomToTurn(d, -1, -1)) {
