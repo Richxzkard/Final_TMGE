@@ -14,21 +14,18 @@ public class Application extends javafx.application.Application {
 
     public static TMGE GamePlay;
 
-    String player1Name;
-    String player2Name;
+    public static String player1Name;
+    public static String player2Name;
 
     @Override
     public void start(Stage stage) throws IOException{
-        player1Name = Main.getUserInput("Please enter your name Player 1: ");
-        player2Name = Main.getUserInput("Please enter your name Player 2: ");
-
         startGame(stage);
     }
 
     public void restart() {
         try {
-            player1Name = Main.getUserInput("Please enter your name Player 1: ");
-            player2Name = Main.getUserInput("Please enter your name Player 2: ");
+            //player1Name = Main.getUserInput("Please enter your name Player 1: ");
+            //player2Name = Main.getUserInput("Please enter your name Player 2: ");
             startGame(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +75,8 @@ public class Application extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
+        Application.player1Name = Main.getUserInput("Please enter your name Player 1: ");
+        Application.player2Name = Main.getUserInput("Please enter your name Player 2: ");
         launch();
     }
 }
