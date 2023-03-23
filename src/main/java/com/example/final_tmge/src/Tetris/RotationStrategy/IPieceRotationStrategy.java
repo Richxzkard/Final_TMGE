@@ -14,53 +14,53 @@ public class IPieceRotationStrategy implements PieceRotationStrategy{
     @Override
     public void rotatePiece(TetrisPiece piece) {
         int state = piece.GetState();
-        Rectangle a = piece.pieceFirst;
-        Rectangle b = piece.pieceSecond;
-        Rectangle c = piece.pieceThird;
-        Rectangle d = piece.pieceFourth;
+        Rectangle first = piece.pieceFirst;
+        Rectangle second = piece.pieceSecond;
+        Rectangle third = piece.pieceThird;
+        Rectangle fourth = piece.pieceFourth;
 
-        if (state == 1 && board.roomToTurn(a, 2, 2) && board.roomToTurn(b, 1, 1) && board.roomToTurn(d, -1, -1)) {
-            board.rectMoveUp(a);
-            board.rectMoveUp(a);
-            board.rectMoveRight(a);
-            board.rectMoveRight(a);
-            board.rectMoveUp(b);
-            board.rectMoveRight(b);
-            board.rectMoveDown(d);
-            board.rectMoveLeft(d);
+        if (state == 1 && board.roomToTurn(first, 2, 2) && board.roomToTurn(second, 1, 1) && board.roomToTurn(fourth, -1, -1)) {
+            board.rectMoveUp(first);
+            board.rectMoveUp(first);
+            board.rectMoveRight(first);
+            board.rectMoveRight(first);
+            board.rectMoveUp(second);
+            board.rectMoveRight(second);
+            board.rectMoveDown(fourth);
+            board.rectMoveLeft(fourth);
             piece.UpdateState();
         }
-        else if (state == 2 && board.roomToTurn(a, -2, -2) && board.roomToTurn(b, -1, -1) && board.roomToTurn(d, 1, 1)) {
-            board.rectMoveDown(a);
-            board.rectMoveDown(a);
-            board.rectMoveLeft(a);
-            board.rectMoveLeft(a);
-            board.rectMoveDown(b);
-            board.rectMoveLeft(b);
-            board.rectMoveUp(d);
-            board.rectMoveRight(d);
+        else if (state == 2 && board.roomToTurn(first, -2, -2) && board.roomToTurn(second, -1, -1) && board.roomToTurn(fourth, 1, 1)) {
+            board.rectMoveDown(first);
+            board.rectMoveDown(first);
+            board.rectMoveLeft(first);
+            board.rectMoveLeft(first);
+            board.rectMoveDown(second);
+            board.rectMoveLeft(second);
+            board.rectMoveUp(fourth);
+            board.rectMoveRight(fourth);
             piece.UpdateState();
         }
-        else if (state == 3 && board.roomToTurn(a, 2, 2) && board.roomToTurn(b, 1, 1) && board.roomToTurn(d, -1, -1)) {
-            board.rectMoveUp(a);
-            board.rectMoveUp(a);
-            board.rectMoveRight(a);
-            board.rectMoveRight(a);
-            board.rectMoveUp(b);
-            board.rectMoveRight(b);
-            board.rectMoveDown(d);
-            board.rectMoveLeft(d);
+        else if (state == 3 && board.roomToTurn(first, 2, 2) && board.roomToTurn(second, 1, 1) && board.roomToTurn(fourth, -1, -1)) {
+            board.rectMoveUp(first);
+            board.rectMoveUp(first);
+            board.rectMoveRight(first);
+            board.rectMoveRight(first);
+            board.rectMoveUp(second);
+            board.rectMoveRight(second);
+            board.rectMoveDown(fourth);
+            board.rectMoveLeft(fourth);
             piece.UpdateState();
         }
-        else if (state == 4 && board.roomToTurn(a, -2, -2) && board.roomToTurn(b, -1, -1) && board.roomToTurn(d, 1, 1)) {
-            board.rectMoveDown(a);
-            board.rectMoveDown(a);
-            board.rectMoveLeft(a);
-            board.rectMoveLeft(a);
-            board.rectMoveDown(b);
-            board.rectMoveLeft(b);
-            board.rectMoveUp(d);
-            board.rectMoveRight(d);
+        else if (state == 4 && board.roomToTurn(first, -2, -2) && board.roomToTurn(second, -1, -1) && board.roomToTurn(fourth, 1, 1)) {
+            board.rectMoveDown(first);
+            board.rectMoveDown(first);
+            board.rectMoveLeft(first);
+            board.rectMoveLeft(first);
+            board.rectMoveDown(second);
+            board.rectMoveLeft(second);
+            board.rectMoveUp(fourth);
+            board.rectMoveRight(fourth);
             piece.UpdateState();
         }
     }

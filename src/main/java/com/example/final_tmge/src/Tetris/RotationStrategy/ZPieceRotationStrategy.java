@@ -15,45 +15,45 @@ public class ZPieceRotationStrategy implements PieceRotationStrategy{
     @Override
     public void rotatePiece(TetrisPiece piece) {
         int state = piece.GetState();
-        Rectangle a = piece.pieceFirst;
-        Rectangle b = piece.pieceSecond;
-        Rectangle c = piece.pieceThird;
-        Rectangle d = piece.pieceFourth;
+        Rectangle first = piece.pieceFirst;
+        Rectangle second = piece.pieceSecond;
+        Rectangle third = piece.pieceThird;
+        Rectangle fourth = piece.pieceFourth;
 
-        if (state == 1 && board.roomToTurn(b, 1, 1) && board.roomToTurn(c, -1, 1) && board.roomToTurn(d, -2, 0)) {
-            board.rectMoveUp(b);
-            board.rectMoveRight(b);
-            board.rectMoveLeft(c);
-            board.rectMoveUp(c);
-            board.rectMoveLeft(d);
-            board.rectMoveLeft(d);
+        if (state == 1 && board.roomToTurn(second, 1, 1) && board.roomToTurn(third, -1, 1) && board.roomToTurn(fourth, -2, 0)) {
+            board.rectMoveUp(second);
+            board.rectMoveRight(second);
+            board.rectMoveLeft(third);
+            board.rectMoveUp(third);
+            board.rectMoveLeft(fourth);
+            board.rectMoveLeft(fourth);
             piece.UpdateState();
         }
-        else if (state == 2 && board.roomToTurn(b, -1, -1) && board.roomToTurn(c, 1, -1) && board.roomToTurn(d, 2, 0)) {
-            board.rectMoveDown(b);
-            board.rectMoveLeft(b);
-            board.rectMoveRight(c);
-            board.rectMoveDown(c);
-            board.rectMoveRight(d);
-            board.rectMoveRight(d);
+        else if (state == 2 && board.roomToTurn(second, -1, -1) && board.roomToTurn(third, 1, -1) && board.roomToTurn(fourth, 2, 0)) {
+            board.rectMoveDown(second);
+            board.rectMoveLeft(second);
+            board.rectMoveRight(third);
+            board.rectMoveDown(third);
+            board.rectMoveRight(fourth);
+            board.rectMoveRight(fourth);
             piece.UpdateState();
         }
-        else if (state == 3 && board.roomToTurn(b, 1, 1) && board.roomToTurn(c, -1, 1) && board.roomToTurn(d, -2, 0)) {
-            board.rectMoveUp(b);
-            board.rectMoveRight(b);
-            board.rectMoveLeft(c);
-            board.rectMoveUp(c);
-            board.rectMoveLeft(d);
-            board.rectMoveLeft(d);
+        else if (state == 3 && board.roomToTurn(second, 1, 1) && board.roomToTurn(third, -1, 1) && board.roomToTurn(fourth, -2, 0)) {
+            board.rectMoveUp(second);
+            board.rectMoveRight(second);
+            board.rectMoveLeft(third);
+            board.rectMoveUp(third);
+            board.rectMoveLeft(fourth);
+            board.rectMoveLeft(fourth);
             piece.UpdateState();
         }
-        else if (state == 4 && board.roomToTurn(b, -1, -1) && board.roomToTurn(c, 1, -1) && board.roomToTurn(d, 2, 0)) {
-            board.rectMoveDown(b);
-            board.rectMoveLeft(b);
-            board.rectMoveRight(c);
-            board.rectMoveDown(c);
-            board.rectMoveRight(d);
-            board.rectMoveRight(d);
+        else if (state == 4 && board.roomToTurn(second, -1, -1) && board.roomToTurn(third, 1, -1) && board.roomToTurn(fourth, 2, 0)) {
+            board.rectMoveDown(second);
+            board.rectMoveLeft(second);
+            board.rectMoveRight(third);
+            board.rectMoveDown(third);
+            board.rectMoveRight(fourth);
+            board.rectMoveRight(fourth);
             piece.UpdateState();
         }
 

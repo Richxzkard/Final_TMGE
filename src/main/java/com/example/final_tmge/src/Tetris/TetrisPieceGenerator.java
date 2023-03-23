@@ -21,61 +21,61 @@ public class TetrisPieceGenerator implements TileGenerator {
     }
 
     private TetrisPiece genTetrisPieceByName(TetrisPiece.NAME name) {
-        Rectangle a = new Rectangle(blockSize - 1, blockSize - 1);
-        Rectangle b = new Rectangle(blockSize - 1, blockSize - 1);
-        Rectangle c = new Rectangle(blockSize - 1, blockSize - 1);
-        Rectangle d = new Rectangle(blockSize - 1, blockSize - 1);
+        Rectangle first = new Rectangle(blockSize - 1, blockSize - 1);
+        Rectangle second = new Rectangle(blockSize - 1, blockSize - 1);
+        Rectangle third = new Rectangle(blockSize - 1, blockSize - 1);
+        Rectangle fourth = new Rectangle(blockSize - 1, blockSize - 1);
         if (name == TetrisPiece.NAME.I) {
-            a.setX(xMax / 2 - 2 * blockSize);
-            b.setX(xMax / 2 - blockSize);
-            c.setX(xMax / 2);
-            d.setX(xMax / 2 + blockSize);
+            first.setX(xMax / 2 - 2 * blockSize);
+            second.setX(xMax / 2 - blockSize);
+            third.setX(xMax / 2);
+            fourth.setX(xMax / 2 + blockSize);
         } else if (name == TetrisPiece.NAME.J) {
-            a.setX(xMax / 2 - blockSize);
-            b.setX(xMax / 2 - blockSize);
-            b.setY(blockSize);
-            c.setX(xMax / 2);
-            c.setY(blockSize);
-            d.setX(xMax / 2 + blockSize);
-            d.setY(blockSize);
+            first.setX(xMax / 2 - blockSize);
+            second.setX(xMax / 2 - blockSize);
+            second.setY(blockSize);
+            third.setX(xMax / 2);
+            third.setY(blockSize);
+            fourth.setX(xMax / 2 + blockSize);
+            fourth.setY(blockSize);
         } else if (name == TetrisPiece.NAME.L) {
-            a.setX(xMax / 2 + blockSize);
-            b.setX(xMax / 2 - blockSize);
-            b.setY(blockSize);
-            c.setX(xMax / 2);
-            c.setY(blockSize);
-            d.setX(xMax / 2 + blockSize);
-            d.setY(blockSize);
+            first.setX(xMax / 2 + blockSize);
+            second.setX(xMax / 2 - blockSize);
+            second.setY(blockSize);
+            third.setX(xMax / 2);
+            third.setY(blockSize);
+            fourth.setX(xMax / 2 + blockSize);
+            fourth.setY(blockSize);
         } else if (name == TetrisPiece.NAME.O) {
-            a.setX(xMax / 2 - blockSize);
-            b.setX(xMax / 2);
-            c.setX(xMax / 2 - blockSize);
-            c.setY(blockSize);
-            d.setX(xMax / 2);
-            d.setY(blockSize);
+            first.setX(xMax / 2 - blockSize);
+            second.setX(xMax / 2);
+            third.setX(xMax / 2 - blockSize);
+            third.setY(blockSize);
+            fourth.setX(xMax / 2);
+            fourth.setY(blockSize);
         } else if (name == TetrisPiece.NAME.S) {
-            a.setX(xMax / 2 + blockSize);
-            b.setX(xMax / 2);
-            c.setX(xMax / 2);
-            c.setY(blockSize);
-            d.setX(xMax / 2 - blockSize);
-            d.setY(blockSize);
+            first.setX(xMax / 2 + blockSize);
+            second.setX(xMax / 2);
+            third.setX(xMax / 2);
+            third.setY(blockSize);
+            fourth.setX(xMax / 2 - blockSize);
+            fourth.setY(blockSize);
         } else if (name == TetrisPiece.NAME.T) {
-            a.setX(xMax / 2 - blockSize);
-            b.setX(xMax / 2);
-            c.setX(xMax / 2);
-            c.setY(blockSize);
-            d.setX(xMax / 2 + blockSize);
+            first.setX(xMax / 2 - blockSize);
+            second.setX(xMax / 2);
+            third.setX(xMax / 2);
+            third.setY(blockSize);
+            fourth.setX(xMax / 2 + blockSize);
         } else if (name == TetrisPiece.NAME.Z) {
-            a.setX(xMax / 2 + blockSize);
-            b.setX(xMax / 2);
-            c.setX(xMax / 2 + blockSize);
-            c.setY(blockSize);
-            d.setX(xMax / 2 + 2 * blockSize);
-            d.setY(blockSize);
+            first.setX(xMax / 2 + blockSize);
+            second.setX(xMax / 2);
+            third.setX(xMax / 2 + blockSize);
+            third.setY(blockSize);
+            fourth.setX(xMax / 2 + 2 * blockSize);
+            fourth.setY(blockSize);
         } else {
             throw new IllegalArgumentException("Invalid Tetris piece ID: " + name.toString());
         }
-        return new TetrisPiece(name.toString(), a, b, c, d);
+        return new TetrisPiece(name.toString(), first, second, third, fourth);
     }
 }
