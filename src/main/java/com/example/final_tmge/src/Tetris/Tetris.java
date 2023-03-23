@@ -1,22 +1,17 @@
 package com.example.final_tmge.src.Tetris;
 
-import com.example.final_tmge.TetrisGameController;
 import com.example.final_tmge.src.Player;
 import com.example.final_tmge.src.TMGE;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class Tetris extends TMGE {
     private static final int X_BLOCKS = 12;
     private static final int Y_BLOCKS = 24;
 
-    public static TetrisBoard board1;
-    public static TetrisBoard board2;
+    public TetrisBoard board1;
+    public TetrisBoard board2;
 
     public Tetris(String name, Player p1, Player p2) {
         super(name, p1, p2);
