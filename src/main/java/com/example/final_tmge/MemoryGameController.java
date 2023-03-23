@@ -1,7 +1,6 @@
 package com.example.final_tmge;
 
-import com.example.final_tmge.src.Memory;
-import com.example.final_tmge.src.MemoryPiece;
+import com.example.final_tmge.src.Memory.Memory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -13,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import java.io.IOException;
-import javafx.scene.control.ButtonType;
+
 import javafx.stage.Stage;
 
 public class MemoryGameController implements GameController{

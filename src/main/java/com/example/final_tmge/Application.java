@@ -2,6 +2,7 @@ package com.example.final_tmge;
 
 import com.example.final_tmge.src.*;
 import com.example.final_tmge.src.BejeweledGame.Bejeweled;
+import com.example.final_tmge.src.Memory.Memory;
 import com.example.final_tmge.src.Tetris.Tetris;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,8 @@ public class Application extends javafx.application.Application {
 
     public static String player1Name;
     public static String player2Name;
+
+    public static final GameInterfaceFactory interfaceFactory = new GameInterfaceFactory();
 
     @Override
     public void start(Stage stage) throws IOException{
@@ -46,26 +49,10 @@ public class Application extends javafx.application.Application {
 
         //print out the menu and get user input
         int selection = Main.getUserSelection("GAME MENU", gameMenu.getMenuList());
-
-        //Get to know to pop up which game UI
-        String title = "";
-        String fxmlFile = "";
         GamePlay = gameMenu.getGame(selection);
-        if(GamePlay.getGameName().equals("Memory")){
-            title = "Memory Game";
-            fxmlFile = "MemoryGameUI.fxml";
-        }
-        else if(GamePlay.getGameName().equals("Bejeweled")){
-            title = "Bejeweled";
-            fxmlFile = "BejeweledGameUI.fxml"; //TODO: BEJEWELED.FXML
-        }
-        else{
-            title = "Tetris";
-            fxmlFile = "TetrisGameUI.fxml";
-        }
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.getResource(fxmlFile));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle(title);
+        //Get to know to pop up which game UI
+        //Following the factory pattern that create the new game interface through factory
+        Scene scene = interfaceFactory.createScene(GamePlay.getGameName());
         stage.setScene(scene);
         stage.show();
     }

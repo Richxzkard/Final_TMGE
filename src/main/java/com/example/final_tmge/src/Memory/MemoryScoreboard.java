@@ -1,4 +1,6 @@
-package com.example.final_tmge.src;
+package com.example.final_tmge.src.Memory;
+
+import com.example.final_tmge.src.iScore;
 
 public class MemoryScoreboard implements iScore {
 

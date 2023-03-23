@@ -1,6 +1,6 @@
-package com.example.final_tmge.src;
+package com.example.final_tmge.src.Memory;
 
-import com.example.final_tmge.MemoryGameController;
+import com.example.final_tmge.src.*;
 import javafx.util.Pair;
 
 public class Memory extends TMGE {
