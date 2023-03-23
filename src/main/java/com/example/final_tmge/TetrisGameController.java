@@ -7,7 +7,6 @@ import com.example.final_tmge.src.Tetris.TetrisPieceGenerator;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -90,28 +89,28 @@ public class TetrisGameController implements GameController{
             public void handle(KeyEvent event) {
                 switch (event.getCode()){
                     case W:
-                        tetris.board1.MoveTurn(currentPiece1);
+                        tetris.board1.pieceReverse(currentPiece1);
                         break;
                     case S:
-                        tetris.board1.MoveDown(currentPiece1);
+                        tetris.board1.down(currentPiece1);
                         break;
                     case A:
-                        tetris.board1.MoveLeft(currentPiece1);
+                        tetris.board1.left(currentPiece1);
                         break;
                     case D:
-                        tetris.board1.MoveRight(currentPiece1);
+                        tetris.board1.right(currentPiece1);
                         break;
                     case I:
-                        tetris.board2.MoveTurn(currentPiece2);
+                        tetris.board2.pieceReverse(currentPiece2);
                         break;
                     case K:
-                        tetris.board2.MoveDown(currentPiece2);
+                        tetris.board2.down(currentPiece2);
                         break;
                     case J:
-                        tetris.board2.MoveLeft(currentPiece2);
+                        tetris.board2.left(currentPiece2);
                         break;
                     case L:
-                        tetris.board2.MoveRight(currentPiece2);
+                        tetris.board2.right(currentPiece2);
                         break;
                 }
             }
@@ -136,7 +135,7 @@ public class TetrisGameController implements GameController{
     private void runGame(TetrisBoard board, TetrisPiece piece, Runnable currentPieceUpdater) {
         Platform.runLater(new Runnable() {
             public void run() {
-                boolean pieceMoved = board.MoveDown(piece);
+                boolean pieceMoved = board.down(piece);
                 if (!pieceMoved) {
                     if (piece.isStuckAtTop()) {
                         board.GameOver();

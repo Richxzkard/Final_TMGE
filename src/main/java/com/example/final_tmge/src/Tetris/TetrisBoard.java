@@ -1,6 +1,5 @@
 package com.example.final_tmge.src.Tetris;
 
-import javafx.scene.input.KeyCode;
 import com.example.final_tmge.src.Board;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -13,15 +12,15 @@ import java.util.ArrayList;
 public class TetrisBoard extends Board {
     private static final int BLOCK_SIZE = 25;
 
-    private int xMax;
-    private int yMax;
+    private int x_block;
+    private int y_block;
 
     private final int xBlocks;
     private final int yBlocks;
 
     private Pane pane;
 
-    public boolean[][] mesh;
+    public boolean[][] boardinfo;
 
     private int removedRows = 0;
 
@@ -29,16 +28,16 @@ public class TetrisBoard extends Board {
         super(height, width);
         xBlocks = width;
         yBlocks = height;
-        xMax = BLOCK_SIZE * xBlocks;
-        yMax = BLOCK_SIZE * yBlocks;
-        mesh = new boolean[xBlocks][yBlocks];
+        x_block = BLOCK_SIZE * xBlocks;
+        y_block = BLOCK_SIZE * yBlocks;
+        boardinfo = new boolean[xBlocks][yBlocks];
     }
 
     public boolean roomToFall(TetrisPiece piece) {
         for (Rectangle part : piece.getAllParts()) {
             int xBlock = (int) ((part.getX()) / BLOCK_SIZE);
             int yBlock = (int) ((part.getY()) / BLOCK_SIZE) + 1;
-            if (yBlock >= yBlocks || mesh[xBlock][yBlock]) {
+            if (yBlock >= yBlocks || boardinfo[xBlock][yBlock]) {
                 return false;
             }
         }
@@ -49,7 +48,7 @@ public class TetrisBoard extends Board {
         for (Rectangle part : piece.getAllParts()) {
             int xBlock = (int) ((part.getX()) / BLOCK_SIZE) + 1;
             int yBlock = (int) ((part.getY()) / BLOCK_SIZE);
-            if (xBlock >= xBlocks || mesh[xBlock][yBlock]) {
+            if (xBlock >= xBlocks || boardinfo[xBlock][yBlock]) {
                 return false;
             }
         }
@@ -60,7 +59,7 @@ public class TetrisBoard extends Board {
         for (Rectangle part : piece.getAllParts()) {
             int xBlock = (int) ((part.getX()) / BLOCK_SIZE) - 1;
             int yBlock = (int) ((part.getY()) / BLOCK_SIZE);
-            if (xBlock < 0 || mesh[xBlock][yBlock]) {
+            if (xBlock < 0 || boardinfo[xBlock][yBlock]) {
                 return false;
             }
         }
@@ -71,19 +70,19 @@ public class TetrisBoard extends Board {
         boolean xHasRoom;
         boolean yHasRoom;
         if (x >= 0) {
-            xHasRoom = rect.getX() + x * BLOCK_SIZE <= xMax - BLOCK_SIZE;
+            xHasRoom = rect.getX() + x * BLOCK_SIZE <= x_block - BLOCK_SIZE;
         } else {
             xHasRoom = rect.getX() + x * BLOCK_SIZE >= 0;
         }
         if (y >= 0) {
             yHasRoom = rect.getY() - y * BLOCK_SIZE > 0;
         } else {
-            yHasRoom = rect.getY() + y * BLOCK_SIZE < yMax;
+            yHasRoom = rect.getY() + y * BLOCK_SIZE < y_block;
         }
-        return xHasRoom && yHasRoom && !mesh[((int) (rect.getX()) / BLOCK_SIZE) + x][((int) (rect.getY() - 0) / BLOCK_SIZE) - y];
+        return xHasRoom && yHasRoom && !boardinfo[((int) (rect.getX()) / BLOCK_SIZE) + x][((int) (rect.getY() - 0) / BLOCK_SIZE) - y];
     }
 
-    public boolean MoveDown(TetrisPiece piece) {
+    public boolean down(TetrisPiece piece) {
         if (roomToFall(piece)) {
             piece.moveDown(BLOCK_SIZE);
             return true;
@@ -93,19 +92,19 @@ public class TetrisBoard extends Board {
         return false;
     }
 
-    public void MoveRight(TetrisPiece piece) {
+    public void right(TetrisPiece piece) {
         if (roomToRight(piece)) {
             piece.moveRight(BLOCK_SIZE);
         }
     }
 
-    public void MoveLeft(TetrisPiece piece) {
+    public void left(TetrisPiece piece) {
         if (roomToLeft(piece)) {
             piece.moveLeft(BLOCK_SIZE);
         }
     }
 
-    public void MoveTurn(TetrisPiece piece) {
+    public void pieceReverse(TetrisPiece piece) {
         int state = piece.GetState();
         Rectangle a = piece.a;
         Rectangle b = piece.b;
@@ -405,7 +404,7 @@ public class TetrisBoard extends Board {
         Text over = new Text("Game Over");
         over.setFill(Color.BLACK);
         over.setStyle("-fx-font: 20 arial;");
-        over.setY(3 * yMax / 4);
+        over.setY(3 * y_block / 4);
         over.setX(100);
         pane.getChildren().add(over);
     }
@@ -417,13 +416,13 @@ public class TetrisBoard extends Board {
         for (Rectangle part : piece.getAllParts()) {
             int xBlock = (int) ((part.getX()) / BLOCK_SIZE);
             int yBlock = (int) ((part.getY()) / BLOCK_SIZE);
-            mesh[xBlock][yBlock] = true;
+            boardinfo[xBlock][yBlock] = true;
         }
     }
 
     private void removeRows() {
         ArrayList<Integer> fullRows = new ArrayList<>();
-        for (int y = 0; y < mesh[0].length; y++) {
+        for (int y = 0; y < boardinfo[0].length; y++) {
             if (rowIsFullAtY(y)) {
                 fullRows.add(y);
                 removedRows++;
@@ -438,8 +437,8 @@ public class TetrisBoard extends Board {
     }
 
     private boolean rowIsFullAtY(int y) {
-        for (int x = 0; x < mesh.length; x++) {
-            if (!mesh[x][y]) {
+        for (int x = 0; x < boardinfo.length; x++) {
+            if (!boardinfo[x][y]) {
                 return false;
             }
         }
@@ -478,14 +477,14 @@ public class TetrisBoard extends Board {
             Rectangle r = (Rectangle) node;
             int xBlock = (int) ((r.getX()) / BLOCK_SIZE);
             int yBlock = (int) ((r.getY()) / BLOCK_SIZE);
-            mesh[xBlock][yBlock] = true;
+            boardinfo[xBlock][yBlock] = true;
         }
     }
 
     public void clearMesh() {
-        for (int i = 0; i < mesh.length; i++) {
-            for (int j = 0; j < mesh[0].length; j++) {
-                mesh[i][j] = false;
+        for (int i = 0; i < boardinfo.length; i++) {
+            for (int j = 0; j < boardinfo[0].length; j++) {
+                boardinfo[i][j] = false;
             }
         }
     }

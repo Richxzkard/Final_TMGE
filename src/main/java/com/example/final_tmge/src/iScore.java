@@ -1,6 +1,6 @@
 package com.example.final_tmge.src;
 
-interface iScore {
+public interface iScore {
     public void updatePlayer1Score();
     public void updatePlayer2Score();
     public void resetScores();

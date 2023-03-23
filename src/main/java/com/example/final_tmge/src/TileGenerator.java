@@ -1,5 +1,7 @@
 package com.example.final_tmge.src;
 
+import com.example.final_tmge.src.BejeweledGame.BejeweledBoard;
+
 public interface TileGenerator {
     public GamePiece generateTile();
 
