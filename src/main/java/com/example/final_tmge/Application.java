@@ -27,6 +27,8 @@ public class Application extends javafx.application.Application {
 
     public void restart() {
         try {
+            player1Name = Main.getUserInput("Please enter your name Player 1: ");
+            player2Name = Main.getUserInput("Please enter your name Player 2: ");
             startGame(new Stage());
         } catch (Exception e) {
             e.printStackTrace();

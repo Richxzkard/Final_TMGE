@@ -1,5 +1,7 @@
 package com.example.final_tmge.src;
 
+import javafx.util.Pair;
+
 import java.util.Random;
 
 public class MemoryBoard extends Board {
@@ -34,5 +36,29 @@ public class MemoryBoard extends Board {
             randomColumn = randomGenerator.nextInt(columnMax);
         }
         return new int[]{randomRow, randomColumn};
+    }
+
+    //RETURN THE IMAGE PATH BY ROW AND COLUMN AND SET THAT PIECE UP
+    public String getPath(int row, int column){
+        MemoryPiece mp = (MemoryPiece)getGamePiece(row, column);
+        //Already been clicked
+        if(mp.isUp()){
+            return null;
+        }else{
+            mp.toggleIsUp();
+            return mp.pngPath();
+        }
+    }
+
+    public boolean checkMatch(Pair<Integer, Integer> first, Pair<Integer, Integer> second){
+        MemoryPiece firstPiece = (MemoryPiece)getGamePiece(first.getKey(), first.getValue());
+        MemoryPiece secondPiece = (MemoryPiece)getGamePiece(second.getKey(), second.getValue());
+        if(firstPiece.equals(secondPiece)){
+            return true;
+        }else{
+            firstPiece.toggleIsUp();
+            secondPiece.toggleIsUp();
+            return false;
+        }
     }
 }

@@ -11,14 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class TetrisGameController {
+public class TetrisGameController implements GameController{
     public Button start;
+    public Button end;
     private static final Tetris tetris = (Tetris) Application.GamePlay;
     public Pane gameMatrixleft;
     public Pane gameMatrixright;
@@ -37,6 +39,7 @@ public class TetrisGameController {
 
     public void initialize() throws IOException {
         start.setOnMouseClicked(event -> startNewGame());
+        end.setOnMouseClicked(event -> closeGame());
         tileGenerator =  new TetrisPieceGenerator();
         tileGenerator.Initialize(tetris.board1.GetBlockSize(), tetris.getXBlocks());
     }
@@ -140,6 +143,14 @@ public class TetrisGameController {
                 }
             }
         });
+    }
+
+    public void closeGame(){
+        //Close the game Window
+        Stage stage = (Stage) start.getScene().getWindow();
+        stage.close();
+        Application application = new Application();
+        application.restart();
     }
 }
 
