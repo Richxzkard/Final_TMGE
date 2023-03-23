@@ -13,6 +13,7 @@
                         <top>
                             <HBox fx:id="menuPanel">
                                 <Button fx:id="start" text="Start Again" />
+                                <Button fx:id="end" text="End Game" />
                             </HBox>
                         </top>
                         <center>

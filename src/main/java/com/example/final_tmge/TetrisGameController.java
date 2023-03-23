@@ -20,6 +20,7 @@ import java.util.TimerTask;
 
 public class TetrisGameController implements GameController{
     public Button start;
+    public Button end;
     private static final Tetris tetris = (Tetris) Application.GamePlay;
     public Pane gameMatrixleft;
     public Pane gameMatrixright;
@@ -38,6 +39,7 @@ public class TetrisGameController implements GameController{
 
     public void initialize() throws IOException {
         start.setOnMouseClicked(event -> startNewGame());
+        end.setOnMouseClicked(event -> closeGame());
         tileGenerator =  new TetrisPieceGenerator();
         tileGenerator.Initialize(tetris.board1.GetBlockSize(), tetris.getXBlocks());
     }
@@ -135,7 +137,6 @@ public class TetrisGameController implements GameController{
                         board.GameOver();
                         leftTimer.cancel();
                         rightTimer.cancel();
-                        closeGame();
                     } else {
                         currentPieceUpdater.run();
                     }

@@ -20,6 +20,7 @@ public class MemoryGameController implements GameController{
     public GridPane gameMatrix;
     public ListView scoreBoard;
     public Button start;
+    public Button end;
     private final Memory memory = (Memory)Application.GamePlay;
 
     private ObservableList<String> scoreList;
@@ -35,6 +36,7 @@ public class MemoryGameController implements GameController{
         startNewGame();
         //Set Up the Start Game Button
         start.setOnMouseClicked(event -> startNewGame());
+        end.setOnMouseClicked(event -> closeGame());
     }
 
     public void updateScoreBoard(String[] scoreBoardInfo){
@@ -55,7 +57,6 @@ public class MemoryGameController implements GameController{
             alert.setContentText("Click OK to Finish the Game");
             // Show the alert and wait for user response
             alert.showAndWait();
-            closeGame();
         }
     }
 
@@ -64,7 +65,7 @@ public class MemoryGameController implements GameController{
         String rowAndColumn = (String) sourceComponent.getUserData();
         int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
         int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
-        String image = memory.getPath(rowSelected, colSelected);
+        String image = memory.getBoard().getPath(rowSelected, colSelected);
         if(image != null){
             Image newImage = new Image(Application.getResource(image).toExternalForm());
             ((ImageView)sourceComponent).setImage(newImage);
