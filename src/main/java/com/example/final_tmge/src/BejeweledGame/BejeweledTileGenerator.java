@@ -1,7 +1,12 @@
-package com.example.final_tmge.src;
-import com.example.final_tmge.src.Bejeweled.*;
-public class BejeweledTileGenerator implements TileGenerator{
+package com.example.final_tmge.src.BejeweledGame;
+import com.example.final_tmge.src.BejeweledGame.Bejeweled.*;
+import com.example.final_tmge.src.GamePiece;
+import com.example.final_tmge.src.TileGenerator;
+import java.util.Random;
 
+public class BejeweledTileGenerator implements TileGenerator {
+
+    Random randomGenerator;
     Gem heart;
     Gem jewel;
     Gem question;
@@ -11,6 +16,9 @@ public class BejeweledTileGenerator implements TileGenerator{
     Gem[] gems;
 
     BejeweledTileGenerator(){
+
+        randomGenerator = new Random();
+
         heart = new Gem("heart");
         jewel = new Gem("jewel");
         question = new Gem("question");
@@ -23,7 +31,6 @@ public class BejeweledTileGenerator implements TileGenerator{
     }
     @Override
     public GamePiece generateTile(){
-
-        return null;
+        return gems[randomGenerator.nextInt(gems.length)];
     }
 }
