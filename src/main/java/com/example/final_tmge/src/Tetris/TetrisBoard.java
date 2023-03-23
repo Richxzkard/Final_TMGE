@@ -1,6 +1,7 @@
 package com.example.final_tmge.src.Tetris;
 
 import com.example.final_tmge.src.Board;
+import com.example.final_tmge.src.Tetris.RotationStrategy.*;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -110,284 +111,33 @@ public class TetrisBoard extends Board {
         Rectangle b = piece.pieceSecond;
         Rectangle c = piece.pieceThird;
         Rectangle d = piece.pieceFourth;
+
         switch (TetrisPiece.NAME.valueOf(piece.getId())) {
             case I:
-                if (state == 1 && roomToTurn(a, 2, 2) && roomToTurn(b, 1, 1) && roomToTurn(d, -1, -1)) {
-                    rectMoveUp(a);
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveRight(a);
-                    rectMoveUp(b);
-                    rectMoveRight(b);
-                    rectMoveDown(d);
-                    rectMoveLeft(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 2 && roomToTurn(a, -2, -2) && roomToTurn(b, -1, -1) && roomToTurn(d, 1, 1)) {
-                    rectMoveDown(a);
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveLeft(a);
-                    rectMoveDown(b);
-                    rectMoveLeft(b);
-                    rectMoveUp(d);
-                    rectMoveRight(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 3 && roomToTurn(a, 2, 2) && roomToTurn(b, 1, 1) && roomToTurn(d, -1, -1)) {
-                    rectMoveUp(a);
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveRight(a);
-                    rectMoveUp(b);
-                    rectMoveRight(b);
-                    rectMoveDown(d);
-                    rectMoveLeft(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 4 && roomToTurn(a, -2, -2) && roomToTurn(b, -1, -1) && roomToTurn(d, 1, 1)) {
-                    rectMoveDown(a);
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveLeft(a);
-                    rectMoveDown(b);
-                    rectMoveLeft(b);
-                    rectMoveUp(d);
-                    rectMoveRight(d);
-                    piece.UpdateState();
-                    break;
-                }
+                PieceRotationStrategy istrategy = new IPieceRotationStrategy(this);
+                istrategy.rotatePiece(piece);
                 break;
             case J:
-                if (state == 1 && roomToTurn(a, 1, -1) && roomToTurn(c, -1, -1) && roomToTurn(d, -2, -2)) {
-                    rectMoveRight(a);
-                    rectMoveDown(a);
-                    rectMoveDown(c);
-                    rectMoveLeft(c);
-                    rectMoveDown(d);
-                    rectMoveDown(d);
-                    rectMoveLeft(d);
-                    rectMoveLeft(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 2 && roomToTurn(a, -1, -1) && roomToTurn(c, -1, 1) && roomToTurn(d, -2, 2)) {
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    rectMoveLeft(d);
-                    rectMoveLeft(d);
-                    rectMoveUp(d);
-                    rectMoveUp(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 3 && roomToTurn(a, -1, 1) && roomToTurn(c, 1, 1) && roomToTurn(d, 2, 2)) {
-                    rectMoveLeft(a);
-                    rectMoveUp(a);
-                    rectMoveUp(c);
-                    rectMoveRight(c);
-                    rectMoveUp(d);
-                    rectMoveUp(d);
-                    rectMoveRight(d);
-                    rectMoveRight(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 4 && roomToTurn(a, 1, 1) && roomToTurn(c, 1, -1) && roomToTurn(d, 2, -2)) {
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    rectMoveRight(d);
-                    rectMoveRight(d);
-                    rectMoveDown(d);
-                    rectMoveDown(d);
-                    piece.UpdateState();
-                    break;
-                }
+                PieceRotationStrategy jstrategy = new JPieceRotationStrategy(this);
+                jstrategy.rotatePiece(piece);
                 break;
             case L:
-                if (state == 1 && roomToTurn(a, 1, -1) && roomToTurn(c, 1, 1) && roomToTurn(b, 2, 2)) {
-                    rectMoveRight(a);
-                    rectMoveDown(a);
-                    rectMoveUp(c);
-                    rectMoveRight(c);
-                    rectMoveUp(b);
-                    rectMoveUp(b);
-                    rectMoveRight(b);
-                    rectMoveRight(b);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 2 && roomToTurn(a, -1, -1) && roomToTurn(b, 2, -2) && roomToTurn(c, 1, -1)) {
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveRight(b);
-                    rectMoveRight(b);
-                    rectMoveDown(b);
-                    rectMoveDown(b);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 3 && roomToTurn(a, -1, 1) && roomToTurn(c, -1, -1) && roomToTurn(b, -2, -2)) {
-                    rectMoveLeft(a);
-                    rectMoveUp(a);
-                    rectMoveDown(c);
-                    rectMoveLeft(c);
-                    rectMoveDown(b);
-                    rectMoveDown(b);
-                    rectMoveLeft(b);
-                    rectMoveLeft(b);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 4 && roomToTurn(a, 1, 1) && roomToTurn(b, -2, 2) && roomToTurn(c, -1, 1)) {
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveLeft(b);
-                    rectMoveLeft(b);
-                    rectMoveUp(b);
-                    rectMoveUp(b);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    piece.UpdateState();
-                    break;
-                }
+                PieceRotationStrategy lstrategy = new LPieceRotationStrategy(this);
+                lstrategy.rotatePiece(piece);
                 break;
             case O:
                 break;
             case S:
-                if (state == 1 && roomToTurn(a, -1, -1) && roomToTurn(c, -1, 1) && roomToTurn(d, 0, 2)) {
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    rectMoveUp(d);
-                    rectMoveUp(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 2 && roomToTurn(a, 1, 1) && roomToTurn(c, 1, -1) && roomToTurn(d, 0, -2)) {
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    rectMoveDown(d);
-                    rectMoveDown(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 3 && roomToTurn(a, -1, -1) && roomToTurn(c, -1, 1) && roomToTurn(d, 0, 2)) {
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    rectMoveUp(d);
-                    rectMoveUp(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 4 && roomToTurn(a, 1, 1) && roomToTurn(c, 1, -1) && roomToTurn(d, 0, -2)) {
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    rectMoveDown(d);
-                    rectMoveDown(d);
-                    piece.UpdateState();
-                    break;
-                }
+                PieceRotationStrategy sstrategy = new SPieceRotationStrategy(this);
+                sstrategy.rotatePiece(piece);
                 break;
             case T:
-                if (state == 1 && roomToTurn(a, 1, 1) && roomToTurn(d, -1, -1) && roomToTurn(c, -1, 1)) {
-                    rectMoveUp(a);
-                    rectMoveRight(a);
-                    rectMoveDown(d);
-                    rectMoveLeft(d);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 2 && roomToTurn(a, 1, -1) && roomToTurn(d, -1, 1) && roomToTurn(c, 1, 1)) {
-                    rectMoveRight(a);
-                    rectMoveDown(a);
-                    rectMoveLeft(d);
-                    rectMoveUp(d);
-                    rectMoveUp(c);
-                    rectMoveRight(c);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 3 && roomToTurn(a, -1, -1) && roomToTurn(d, 1, 1) && roomToTurn(c, 1, -1)) {
-                    rectMoveDown(a);
-                    rectMoveLeft(a);
-                    rectMoveUp(d);
-                    rectMoveRight(d);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 4 && roomToTurn(a, -1, 1) && roomToTurn(d, 1, -1) && roomToTurn(c, -1, -1)) {
-                    rectMoveLeft(a);
-                    rectMoveUp(a);
-                    rectMoveRight(d);
-                    rectMoveDown(d);
-                    rectMoveDown(c);
-                    rectMoveLeft(c);
-                    piece.UpdateState();
-                    break;
-                }
+                PieceRotationStrategy tstrategy = new TPieceRotationStrategy(this);
+                tstrategy.rotatePiece(piece);
                 break;
             case Z:
-                if (state == 1 && roomToTurn(b, 1, 1) && roomToTurn(c, -1, 1) && roomToTurn(d, -2, 0)) {
-                    rectMoveUp(b);
-                    rectMoveRight(b);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    rectMoveLeft(d);
-                    rectMoveLeft(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 2 && roomToTurn(b, -1, -1) && roomToTurn(c, 1, -1) && roomToTurn(d, 2, 0)) {
-                    rectMoveDown(b);
-                    rectMoveLeft(b);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    rectMoveRight(d);
-                    rectMoveRight(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 3 && roomToTurn(b, 1, 1) && roomToTurn(c, -1, 1) && roomToTurn(d, -2, 0)) {
-                    rectMoveUp(b);
-                    rectMoveRight(b);
-                    rectMoveLeft(c);
-                    rectMoveUp(c);
-                    rectMoveLeft(d);
-                    rectMoveLeft(d);
-                    piece.UpdateState();
-                    break;
-                }
-                if (state == 4 && roomToTurn(b, -1, -1) && roomToTurn(c, 1, -1) && roomToTurn(d, 2, 0)) {
-                    rectMoveDown(b);
-                    rectMoveLeft(b);
-                    rectMoveRight(c);
-                    rectMoveDown(c);
-                    rectMoveRight(d);
-                    rectMoveRight(d);
-                    piece.UpdateState();
-                    break;
-                }
+                PieceRotationStrategy zstrategy = new ZPieceRotationStrategy(this);
+                zstrategy.rotatePiece(piece);
                 break;
         }
     }
@@ -489,19 +239,19 @@ public class TetrisBoard extends Board {
         }
     }
 
-    private void rectMoveRight(Rectangle rect) {
+    public void rectMoveRight(Rectangle rect) {
         rect.setX(rect.getX() + BLOCK_SIZE);
     }
 
-    private void rectMoveLeft(Rectangle rect) {
+    public void rectMoveLeft(Rectangle rect) {
         rect.setX(rect.getX() - BLOCK_SIZE);
     }
 
-    private void rectMoveUp(Rectangle rect) {
+    public void rectMoveUp(Rectangle rect) {
         rect.setY(rect.getY() - BLOCK_SIZE);
     }
 
-    private void rectMoveDown(Rectangle rect) {
+    public void rectMoveDown(Rectangle rect) {
         rect.setY(rect.getY() + BLOCK_SIZE);
     }
 }
