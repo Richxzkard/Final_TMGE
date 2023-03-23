@@ -16,11 +16,11 @@ import java.io.IOException;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
-public class MemoryGameController {
+public class MemoryGameController implements GameController{
     public GridPane gameMatrix;
     public ListView scoreBoard;
     public Button start;
-    private Memory memory = (Memory)Application.GamePlay;
+    private final Memory memory = (Memory)Application.GamePlay;
 
     private ObservableList<String> scoreList;
 
@@ -93,10 +93,6 @@ public class MemoryGameController {
         application.restart();
     }
 
-
-    public void startButtonClick(){
-        startNewGame();
-    }
 
     //START NEW GAME
     public void startNewGame(){

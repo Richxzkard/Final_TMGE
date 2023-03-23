@@ -11,13 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class TetrisGameController {
+public class TetrisGameController implements GameController{
     public Button start;
     private static final Tetris tetris = (Tetris) Application.GamePlay;
     public Pane gameMatrixleft;
@@ -134,12 +135,21 @@ public class TetrisGameController {
                         board.GameOver();
                         leftTimer.cancel();
                         rightTimer.cancel();
+                        closeGame();
                     } else {
                         currentPieceUpdater.run();
                     }
                 }
             }
         });
+    }
+
+    public void closeGame(){
+        //Close the game Window
+        Stage stage = (Stage) start.getScene().getWindow();
+        stage.close();
+        Application application = new Application();
+        application.restart();
     }
 }
 
