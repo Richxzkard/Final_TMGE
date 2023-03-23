@@ -6,6 +6,7 @@ import com.example.final_tmge.src.Tetris.TetrisPiece;
 import com.example.final_tmge.src.Tetris.TetrisPieceGenerator;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
@@ -25,6 +26,10 @@ public class TetrisGameController implements GameController{
     public Pane gameMatrixleft;
     public Pane gameMatrixright;
     public AnchorPane holder;
+
+    public Label leftPlayer;
+    public Label rightPlayer;
+    public Label finalMessage;
 
     public Timer leftTimer;
     public Timer rightTimer;
@@ -52,7 +57,7 @@ public class TetrisGameController implements GameController{
             rightTimer.cancel();
         }
 
-        tetris.startNewGame(gameMatrixleft, gameMatrixright);
+        tetris.startNewGame(gameMatrixleft, gameMatrixright, leftPlayer, rightPlayer);
         startNewGameForPlayer1();
         startNewGameForPlayer2();
     }

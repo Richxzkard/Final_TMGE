@@ -4,6 +4,7 @@ import com.example.final_tmge.TetrisGameController;
 import com.example.final_tmge.src.Player;
 import com.example.final_tmge.src.TMGE;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
@@ -24,7 +25,10 @@ public class Tetris extends TMGE {
 //        board2.xMin = 330;
     }
 
-    public void startNewGame(Pane leftPane, Pane rightPane) {
+    public void startNewGame(Pane leftPane, Pane rightPane, Label left, Label right) {
+        left.setText(player1.userName);
+        right.setText(player2.userName);
+
         board1.BindPane(leftPane);
         board2.BindPane(rightPane);
         leftPane.getChildren().clear();
