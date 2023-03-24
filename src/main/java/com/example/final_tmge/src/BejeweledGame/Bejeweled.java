@@ -44,8 +44,8 @@ public class Bejeweled extends TMGE {
         scoreboard.resetScores();
         p1Board.resetBoard();
         p2Board.resetBoard();
-        p1Board.setBejeweledBoard();
-        p2Board.setBejeweledBoard();
+        p1Board.setBoard();
+        p2Board.setBoard();
     }
 
 }

@@ -16,6 +16,8 @@ public class BejeweledBoard extends Board {
     HorizontalMatch hMatch;
     VerticalMatch vMatch;
 
+    List<Coordinates> guiUpdate;
+
     int totalMatches;
 
     int boardHeight;
@@ -34,7 +36,8 @@ public class BejeweledBoard extends Board {
         matchesExist = false;
     }
 
-    public void setBejeweledBoard() {
+    @Override
+    public void setBoard() {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardWidth; j++) {
                 setGamePiece(generator.generateTile(), i, j);
@@ -44,7 +47,7 @@ public class BejeweledBoard extends Board {
 
     public void resetBoard() {
         clearBoard();
-        setBejeweledBoard();
+        setBoard();
     }
 
     public void updateBoard(List<Coordinates> coordinates){
@@ -54,6 +57,14 @@ public class BejeweledBoard extends Board {
             setGamePiece(generator.generateTile(), coordinates.get(i).getX(), coordinates.get(i).getY());
         }
 
+    }
+
+    public List<Coordinates> getMatchCoordinates(List<Coordinates> coordinates) {
+        for(int i = 0; i < coordinates.size(); i++){
+            guiUpdate.add(coordinates.get(i));
+        }
+
+        return guiUpdate;
     }
 
     void removeGamePiece(int row, int column){
@@ -86,7 +97,6 @@ public class BejeweledBoard extends Board {
 
         List<List<Coordinates>> verticalMatches = vMatch.findMatches(matrix);
 
-
         List<List<Coordinates>> horizontalMatches = hMatch.findMatches(matrix);
 
         //if matches are found, leave the game pieces as is then call updateBoard with the list of coordinates with a match
@@ -94,6 +104,7 @@ public class BejeweledBoard extends Board {
             matchesExist = true;
             for(int i = 0; i < verticalMatches.size(); i++) {
                 updateBoard(verticalMatches.get(i));
+                getMatchCoordinates(verticalMatches.get(i));
             }
             totalMatches = totalMatches + 1;
         }
@@ -102,6 +113,7 @@ public class BejeweledBoard extends Board {
             matchesExist = true;
             for(int i = 0; i < horizontalMatches.size(); i++) {
                 updateBoard(horizontalMatches.get(i));
+                getMatchCoordinates(horizontalMatches.get(i));
             }
             totalMatches = totalMatches + 1;
         }
