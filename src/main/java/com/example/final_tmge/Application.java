@@ -27,8 +27,6 @@ public class Application extends javafx.application.Application {
 
     public void restart() {
         try {
-            //player1Name = Main.getUserInput("Please enter your name Player 1: ");
-            //player2Name = Main.getUserInput("Please enter your name Player 2: ");
             startGame(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,12 +48,17 @@ public class Application extends javafx.application.Application {
         //print out the menu and get user input
         int selection = Main.getUserSelection("GAME MENU", gameMenu.getMenuList());
         GamePlay = gameMenu.getGame(selection);
-        //Get to know to pop up which game UI
-        //Following the factory pattern that create the new game interface through factory
-        Scene scene = interfaceFactory.createScene(GamePlay.getGameName());
-        stage.setTitle(GamePlay.getGameName());
-        stage.setScene(scene);
-        stage.show();
+        if(GamePlay == null){ //END GAME
+            System.exit(0);
+        }else{
+            //Get to know to pop up which game UI
+            //Following the factory pattern that create the new game interface through factory
+            Scene scene = interfaceFactory.createScene(GamePlay.getGameName());
+            stage.setTitle(GamePlay.getGameName());
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 
     public static URL getResource(String path){

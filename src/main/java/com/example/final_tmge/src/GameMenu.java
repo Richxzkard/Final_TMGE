@@ -18,14 +18,20 @@ public class GameMenu {
     }
 
     public TMGE getGame(int gameID){
-        return GameList.get(gameID);
+        if(gameID >= GameList.size()){
+            return null;
+        }
+        else{
+            return GameList.get(gameID);
+        }
     }
 
     public String[] getMenuList(){
-        String[] gameNames = new String[GameList.size()];
+        String[] gameNames = new String[GameList.size()+1];
         for (int i = 0; i < GameList.size(); i++) {
             gameNames[i] = GameList.get(i).getGameName();
         }
+        gameNames[GameList.size()] = "Exit";
         return gameNames;
     }
 }
