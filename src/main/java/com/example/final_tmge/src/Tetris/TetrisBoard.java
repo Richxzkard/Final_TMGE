@@ -152,8 +152,8 @@ public class TetrisBoard extends Board {
 
     public void GameOver() {
         Text over = new Text("Game Over");
-        over.setFill(Color.BLACK);
-        over.setStyle("-fx-font: 20 arial;");
+        over.setFill(Color.HOTPINK);
+        over.setStyle("-fx-font: 50 arial;");
         over.setY(3 * y_block / 4);
         over.setX(100);
         pane.getChildren().add(over);
