@@ -39,6 +39,7 @@ public class Application extends javafx.application.Application {
         Memory memory = new Memory("Memory", player1, player2);
         Bejeweled bejeweled = new Bejeweled("Bejeweled", player1, player2);
         Tetris tetris = new Tetris("Tetris", player1, player2);
+        TetrisGameController.tetris = tetris;
         
         GameMenu gameMenu = new GameMenu();
         gameMenu.addGame(bejeweled);
@@ -68,6 +69,6 @@ public class Application extends javafx.application.Application {
     public static void main(String[] args) {
         Application.player1Name = Main.getUserInput("Please enter your name Player 1: ");
         Application.player2Name = Main.getUserInput("Please enter your name Player 2: ");
-        launch();
+        launch(args);
     }
 }
