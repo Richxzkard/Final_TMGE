@@ -232,6 +232,7 @@ public class TetrisBoard extends Board {
     }
 
     public void clearMesh() {
+        System.out.println("Board clear called");
         for (int i = 0; i < boardinfo.length; i++) {
             for (int j = 0; j < boardinfo[0].length; j++) {
                 boardinfo[i][j] = false;

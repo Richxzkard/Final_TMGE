@@ -21,7 +21,7 @@ import java.util.TimerTask;
 public class TetrisGameController implements GameController{
     public Button start;
     public Button end;
-    private static final Tetris tetris = (Tetris) Application.GamePlay;
+    public static Tetris tetris = (Tetris) Application.GamePlay;
     public Pane gameMatrixleft;
     public Pane gameMatrixright;
     public AnchorPane holder;
@@ -36,7 +36,6 @@ public class TetrisGameController implements GameController{
     // This is the Tetris piece fall down interval in milliseconds. The lower the value the higher the speed.
     private int fallDownInterval = 200;
     private TetrisPiece currentPiece1;
-
     private TetrisPiece currentPiece2;
 
     private TetrisPieceGenerator tileGenerator;
@@ -155,6 +154,9 @@ public class TetrisGameController implements GameController{
         stage.close();
         Application application = new Application();
         application.restart();
+
+        leftTimer.cancel();
+        rightTimer.cancel();
     }
 }
 
